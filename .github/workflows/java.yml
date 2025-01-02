@@ -12,6 +12,8 @@ jobs:
   push:
     name: "yolks:java_${{ matrix.tag }}"
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     strategy:
       fail-fast: false
       matrix:
