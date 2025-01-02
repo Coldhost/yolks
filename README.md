@@ -27,7 +27,7 @@ When adding a new version to an existing image, such as `java v42`, you'd add it
 `java/42/Dockerfile` for example. Please also update the correct `.github/workflows` file to ensure that this new version
 is tagged correctly.
 
-## Available Images
+## Available Images (Always check for tagged packages, not everything is enabled to be packaged)
 
 * [`base oses`](https://github.com/Coldhost/yolks/tree/master/oses)
   * [`alpine`](https://github.com/Coldhost/yolks/tree/master/oses/alpine)
