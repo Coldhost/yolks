@@ -35,18 +35,19 @@ cd /home/container || exit 1
 
 # Update ClamAV definitions (optional but recommended at runtime)
 if [ "$ENABLE_CLAMAV" = "true" ]; then
+	echo "Updating Virus Lists..."
 	freshclam
-	echo "Scanning the home directory with ClamAV..."
+	echo "Scanning the home directory with ClamAV AntiVirus..."
 	clamscan -r /home/container
 else
-    echo "Antivirus scanning is disabled."
+    echo "WARNING: Antivirus scanning is disabled."
 fi
 
 # Scan the home directory
 
 
 # Print Java version
-printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0mjava -version\n"
+printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[0mjava -version\n"
 java -version
 
 # Convert all of the "{{VARIABLE}}" parts of the command into the expected shell
