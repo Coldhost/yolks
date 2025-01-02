@@ -34,11 +34,16 @@ export INTERNAL_IP
 cd /home/container || exit 1
 
 # Update ClamAV definitions (optional but recommended at runtime)
-freshclam
+if [ "$ENABLE_CLAMAV" = "true" ]; then
+	freshclam
+	echo "Scanning the home directory with ClamAV..."
+	clamscan -r /home/container
+else
+    echo "Antivirus scanning is disabled."
+fi
 
 # Scan the home directory
-echo "Scanning the home directory with ClamAV..."
-clamscan -r /home/container
+
 
 # Print Java version
 printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0mjava -version\n"
@@ -51,6 +56,6 @@ PARSED=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g' | eval echo "$(cat
 
 # Display the command we're running in the output, and then execute it with the env
 # from the container itself.
-printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0m%s\n" "$PARSED"
+printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[0m%s\n" "$PARSED"
 # shellcheck disable=SC2086
 exec env ${PARSED}
