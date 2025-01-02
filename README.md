@@ -1,3 +1,5 @@
+> ! This repository was edited for needs of Coldhost.eu !
+
 # Yolks
 
 A curated collection of core images that can be used with Coldhost's Egg system. Each image is rebuilt
