@@ -33,6 +33,13 @@ export INTERNAL_IP
 # Switch to the container's working directory
 cd /home/container || exit 1
 
+# Update ClamAV definitions (optional but recommended at runtime)
+freshclam
+
+# Scan the home directory
+echo "Scanning the home directory with ClamAV..."
+clamscan -r /home/container
+
 # Print Java version
 printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0mjava -version\n"
 java -version
