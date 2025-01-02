@@ -28,3 +28,5 @@ LABEL       org.opencontainers.image.source="https://github.com/pterodactyl/yolk
 LABEL       org.opencontainers.image.licenses=MIT
 
 RUN         apk add --update --no-cache ca-certificates curl git jq wget
+RUN         curl -o /usr/local/bin/downloader https://raw.githubusercontent.com/Coldhost/eggs/refs/heads/master/scripts/downloader.sh \
+				&& chmod +x /usr/local/bin/downloader
