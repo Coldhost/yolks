@@ -29,13 +29,12 @@ LABEL       org.opencontainers.image.licenses=MIT
 
 RUN 				apt-get update -y \
 						&& apt-get install -y lsof curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 clamav clamav-daemon \
-						&& useradd -d /home/container -m container
+						&& useradd -d /home/container -m container \
+						&& echo "container ALL=(ALL) NOPASSWD: /usr/bin/freshclam" >> /etc/sudoers
 
 USER        container
 ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
-
-RUN echo "container ALL=(ALL) NOPASSWD: /usr/bin/freshclam" >> /etc/sudoers
 
 COPY        ./../entrypoint.sh /entrypoint.sh
 CMD         [ "/bin/bash", "/entrypoint.sh" ]
