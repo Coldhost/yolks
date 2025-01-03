@@ -36,7 +36,7 @@ echo $ENABLE_AV
 # Update ClamAV definitions (optional but recommended at runtime)
 if [ "$ENABLE_AV" = 1 ]; then
 	echo "Updating Virus Lists..."
-	sudo freshclam
+	freshclam
 	echo "Scanning the home directory with ClamAV AntiVirus..."
 	clamscan -r /home/container
 else

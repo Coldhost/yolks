@@ -28,9 +28,8 @@ LABEL       org.opencontainers.image.source="https://github.com/pterodactyl/yolk
 LABEL       org.opencontainers.image.licenses=MIT
 
 RUN 		apt-get update -y \
-			&& apt-get install -y lsof curl ca-certificates openssl sudo git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 clamav clamav-daemon \
-			&& useradd -d /home/container -m container \
-			&& echo "container ALL=(ALL) NOPASSWD: /usr/bin/freshclam" >> /etc/sudoers
+			&& apt-get install -y lsof curl ca-certificates openssl libcap2-bin git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 clamav clamav-daemon \
+			&& useradd -d /home/container -m container
 
 
 USER        container
