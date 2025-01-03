@@ -34,7 +34,7 @@ export INTERNAL_IP
 cd /home/container || exit 1
 
 # Update ClamAV definitions (optional but recommended at runtime)
-if [ "$ENABLE_CLAMAV" = "true" ]; then
+if [ "$ENABLE_CLAMAV" = 1 ]; then
 	echo "Updating Virus Lists..."
 	freshclam
 	echo "Scanning the home directory with ClamAV AntiVirus..."
