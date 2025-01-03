@@ -27,9 +27,11 @@ LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 LABEL       org.opencontainers.image.source="https://github.com/pterodactyl/yolks"
 LABEL       org.opencontainers.image.licenses=MIT
 
-RUN 		apt-get update -y \
- 			&& apt-get install -y lsof curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 clamav clamav-daemon \
- 			&& useradd -d /home/container -m container
+RUN 		apt-get update -y \ 
+			&& apt-get install -y lsof curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 clamav clamav-daemon \
+			&& useradd -d /home/container -m container \
+			&& echo "container ALL=(ALL) NOPASSWD: /usr/bin/freshclam" >> /etc/sudoers
+
 
 USER        container
 ENV         USER=container HOME=/home/container
