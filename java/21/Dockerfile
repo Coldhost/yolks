@@ -28,7 +28,7 @@ LABEL       org.opencontainers.image.source="https://github.com/Coldhost/yolks"
 LABEL       org.opencontainers.image.licenses=MIT
 
 RUN 				apt-get update -y \
-						&& apt-get install -y lsof curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 clamav clamav-daemon \
+						&& apt-get install -y lsof curl ca-certificates openssl git tar sudo sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 clamav clamav-daemon \
 						&& useradd -d /home/container -m container \
 						&& echo "container ALL=(ALL) NOPASSWD: /usr/bin/freshclam" >> /etc/sudoers
 
