@@ -35,5 +35,7 @@ USER        container
 ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
 
+RUN echo "container ALL=(ALL) NOPASSWD: /usr/bin/freshclam" >> /etc/sudoers
+
 COPY        ./../entrypoint.sh /entrypoint.sh
 CMD         [ "/bin/bash", "/entrypoint.sh" ]
