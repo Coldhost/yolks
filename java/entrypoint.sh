@@ -32,9 +32,9 @@ export INTERNAL_IP
 
 # Switch to the container's working directory
 cd /home/container || exit 1
-
+echo $ENABLE_AV
 # Update ClamAV definitions (optional but recommended at runtime)
-if [ "$ENABLE_CLAMAV" = 1 ]; then
+if [ "$ENABLE_AV" = 1 ]; then
 	echo "Updating Virus Lists..."
 	freshclam
 	echo "Scanning the home directory with ClamAV AntiVirus..."
