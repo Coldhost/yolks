@@ -32,7 +32,7 @@ export INTERNAL_IP
 
 # Switch to the container's working directory
 cd /home/container || exit 1
-echo $ENABLE_AV
+
 # Update ClamAV definitions (optional but recommended at runtime)
 if [ "$ENABLE_AV" = 1 ]; then
 	echo "Updating Virus Lists..."
@@ -44,7 +44,6 @@ else
 fi
 
 # Scan the home directory
-
 
 # Print Java version
 printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[0mjava -version\n"

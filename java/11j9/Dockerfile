@@ -32,7 +32,7 @@ RUN 		apt-get update -y \
 			&& useradd -d /home/container -m container
 
 
-RUN setcap cap_net_raw+ep /usr/bin/freshclam
+RUN chown -R container:container /usr/bin/freshclam /var/lib/clamav
 
 USER        container
 ENV         USER=container HOME=/home/container

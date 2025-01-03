@@ -39,7 +39,7 @@ RUN 		apt-get update -y \
 			&& apt-get install -y lsof libcap2-bin curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 clamav clamav-daemon \
 			&& useradd -d /home/container -m container
 
-RUN setcap cap_net_raw+ep /usr/bin/freshclam
+RUN chown -R container:container /usr/bin/freshclam /var/lib/clamav
 
 USER        container
 ENV         USER=container HOME=/home/container
