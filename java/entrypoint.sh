@@ -36,9 +36,11 @@ cd /home/container || exit 1
 # Update ClamAV definitions (optional but recommended at runtime)
 if [ "$ENABLE_AV" = 1 ]; then
 	echo "Updating Virus Lists..."
-	freshclam
+	mkdir -p /home/container/clamav/logs
+	cp /freshclam.conf /home/container/clamav
+	freshclam --config-file=/home/container/clamav/freshclam.conf
 	echo "Scanning the home directory with ClamAV AntiVirus..."
-	clamscan -r /home/container
+	clamscan -r --database=/home/container/clamav/ /home/container 
 else
     echo "WARNING: Antivirus scanning is disabled."
 fi

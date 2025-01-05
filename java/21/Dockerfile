@@ -31,11 +31,13 @@ RUN 				apt-get update -y \
 						&& apt-get install -y lsof curl libcap2-bin ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 clamav clamav-daemon \
 						&& useradd -d /home/container -m container
 
-RUN usermod -aG clamav container
+RUN chown -R container:container /usr/bin/freshclam /var/lib/clamav
 
 USER        container
 ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
 
 COPY        ./../entrypoint.sh /entrypoint.sh
+COPY        ./../freshclam.conf /freshclam.conf
+
 CMD         [ "/bin/bash", "/entrypoint.sh" ]
