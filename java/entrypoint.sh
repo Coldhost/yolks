@@ -40,7 +40,7 @@ if [ "$ENABLE_AV" = 1 ]; then
 	cp /freshclam.conf /home/container/clamav
 	freshclam --config-file=/home/container/clamav/freshclam.conf
 	echo "Scanning the home directory with ClamAV AntiVirus..."
-	clamscan -r --database=/home/container/clamav/ /home/container 
+	cgexec -g memory:my_cgroup clamscan -r --database=/home/container/clamav/ /home/container 
 else
     echo "WARNING: Antivirus scanning is disabled."
 fi
