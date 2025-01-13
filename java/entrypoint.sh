@@ -41,6 +41,9 @@ if [ "$ENABLE_AV" = 1 ]; then
 	freshclam --config-file=/home/container/clamav/freshclam.conf
 	echo "Scanning the home directory with ClamAV AntiVirus..."
 	clamscan -r --move=/home/container/clamav/quarantine --logs=/home/container/clamav/logs/clamscan.txt --database=/home/container/clamav/ /home/container
+	if find /path/to/container -type f | grep -q .; then
+		echo "WARNING: Quarantined files are in /clamav/quarantine, Please delete them to remove this warning"
+	fi
 else
     echo "WARNING: Antivirus scanning is disabled."
 fi
