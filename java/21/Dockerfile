@@ -26,7 +26,10 @@ LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
 LABEL       org.opencontainers.image.source="https://github.com/Coldhost/yolks"
 LABEL       org.opencontainers.image.licenses=MIT
+
 ENV DEBIAN_FRONTEND=noninteractive
+ENV PS1="container@coldhost.eu~ "
+
 RUN 				apt-get update -y \
 						&& apt-get install -y lsof curl libcap2-bin ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 clamav clamav-daemon \
 						&& useradd -d /home/container -m container
