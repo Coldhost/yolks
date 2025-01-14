@@ -42,7 +42,7 @@ if [ "$ENABLE_AV" = 1 ]; then
 	echo "Scanning the home directory with ClamAV AntiVirus..."
 	clamscan -r --move=/home/container/clamav/quarantine --log=/home/container/clamav/logs/clamscan.txt --database=/home/container/clamav/ /home/container
 	if find /home/container/clamav/quarantine -type f | grep -q .; then
-		echo "printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[0mWARNING: Quarantined files are in /clamav/quarantine, Please delete them to remove this warning\n"
+		echo printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[0mWARNING: Quarantined files are in /clamav/quarantine, Please delete them to remove this warning\n"
 	fi
 else
     printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[0mWARNING: Antivirus scanning is disabled.\n"
