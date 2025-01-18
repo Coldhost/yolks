@@ -22,6 +22,13 @@
 # SOFTWARE.
 #
 
+echo " __    .  ..  .       , "
+echo '/  ` _ | _||__| _  __-+-'
+echo "\__.(_)|(_]|  |(_)_)  | "
+echo "                        "
+echo ""
+echo "Egg is starting... "
+
 # Default the TZ environment variable to UTC.
 TZ=${TZ:-UTC}
 export TZ
