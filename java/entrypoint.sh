@@ -43,7 +43,7 @@ cd /home/container || exit 1
 # Update ClamAV definitions (optional but recommended at runtime)
 if [ "$ENABLE_AV" = 1 ]; then
 	if find /home/container/clamav/quarantine -type f | grep -q .; then
-		printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[0mWARNING: Quarantined files are in /clamav/quarantine, Please delete them to remove this warning\n"
+		printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;41mQuarantined files are in /clamav/quarantine, Please delete them to remove this warning\033[0m\n"
 		exit
 	fi
 	echo -e "\033[1;39;44mUpdating Virus Lists...\033[0m"
@@ -53,7 +53,7 @@ if [ "$ENABLE_AV" = 1 ]; then
 	echo -e "\033[1;39;44mScanning the home directory with ClamAV AntiVirus...\033[0m"
 	clamscan -r --move=/home/container/clamav/quarantine --log=/home/container/clamav/logs/clamscan.txt --database=/home/container/clamav/ /home/container
 	if find /home/container/clamav/quarantine -type f | grep -q .; then
-		printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[0mWARNING: Quarantined files are in /clamav/quarantine, Please delete them to remove this warning\n"
+		printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;41mQuarantined files are in /clamav/quarantine, Please delete them to remove this warning\033[0m\n"
 		exit
 	fi
 else
