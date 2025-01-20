@@ -60,10 +60,11 @@ if [ "$ENABLE_AV" = 1 ]; then
 	mkdir -p /home/container/clamav/logs /home/container/clamav/quarantine
 	cp /freshclam.conf /home/container/clamav
 	freshclam --config-file=/home/container/clamav/freshclam.conf
-	echo -e "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mScanning the home directory with ClamAV AntiVirus...\033[0m"
 	if [ "$ONLY_PLUGINS" = 1 ]; then
+		echo -e "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mScanning plugins with ClamAV AntiVirus...\033[0m"
 		clamscan -r --move=/home/container/clamav/quarantine --log=/home/container/clamav/logs/clamscan.txt --database=/home/container/clamav/ --infected --include="^[^\.]+$" --include="\.jar$" --exclude-dir="\.cache" --exclude="\.paper-remapped$" /home/container/plugins
 	else
+		echo -e "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mScanning the home directory with ClamAV AntiVirus...\033[0m"
 		echo -e "THIS MAY TAKE UNDER 10 MINUTES"
 		clamscan -r --move=/home/container/clamav/quarantine --log=/home/container/clamav/logs/clamscan.txt --database=/home/container/clamav/ --infected --include="^[^\.]+$" --include="\.jar$" --exclude-dir="\.cache" --exclude="\.paper-remapped$" /home/container
 	fi
@@ -72,6 +73,7 @@ if [ "$ENABLE_AV" = 1 ]; then
 		exit
 	fi
 else
+	rm -rf /home/container/clamav
     printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mWARNING: Antivirus scanning is disabled.\n"
 fi
 
