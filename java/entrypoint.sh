@@ -27,7 +27,7 @@ echo -e '\033[1;39;44m/  ` _ | _||__| _  __-+-'
 echo -e "\033[1;39;44m\__.(_)|(_]|  |(_)_)  | "
 echo -e "\033[1;39;44m                        "
 echo -e ""
-echo -e "Egg is starting... "
+echo -e "Server is starting... "
 
 # Default the TZ environment variable to UTC.
 TZ=${TZ:-UTC}
