@@ -22,12 +22,12 @@
 # SOFTWARE.
 #
 
-echo " __    .  ..  .       , "
-echo '/  ` _ | _||__| _  __-+-'
-echo "\__.(_)|(_]|  |(_)_)  | "
-echo "                        "
-echo ""
-echo "Egg is starting... "
+echo -e "\033[1;39;44m __    .  ..  .       , "
+echo -e '\033[1;39;44m/  ` _ | _||__| _  __-+-'
+echo -e "\033[1;39;44m\__.(_)|(_]|  |(_)_)  | "
+echo -e "\033[1;39;44m                        "
+echo -e ""
+echo -e "\033[1;39;44mEgg is starting... "
 
 # Default the TZ environment variable to UTC.
 TZ=${TZ:-UTC}
@@ -46,18 +46,18 @@ if [ "$ENABLE_AV" = 1 ]; then
 		printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;41mQuarantined files are in /clamav/quarantine, Please delete them to remove this warning\033[0m\n"
 		exit
 	fi
-	echo -e "\033[1;39;44mUpdating Virus Lists...\033[0m"
+	echo -e "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mUpdating Virus Lists...\033[0m"
 	mkdir -p /home/container/clamav/logs /home/container/clamav/quarantine
 	cp /freshclam.conf /home/container/clamav
 	freshclam --config-file=/home/container/clamav/freshclam.conf
-	echo -e "\033[1;39;44mScanning the home directory with ClamAV AntiVirus...\033[0m"
+	echo -e "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mScanning the home directory with ClamAV AntiVirus...\033[0m"
 	clamscan -r --move=/home/container/clamav/quarantine --log=/home/container/clamav/logs/clamscan.txt --database=/home/container/clamav/ /home/container
 	if find /home/container/clamav/quarantine -type f | grep -q .; then
 		printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;41mQuarantined files are in /clamav/quarantine, Please delete them to remove this warning\033[0m\n"
 		exit
 	fi
 else
-    printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[0mWARNING: Antivirus scanning is disabled.\n"
+    printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mWARNING: Antivirus scanning is disabled.\n"
 fi
 
 # Scan the home directory
