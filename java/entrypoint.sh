@@ -20,7 +20,9 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-#
+
+# Clear so it shows nicer
+clear
 
 echo -e "\033[1;39;44m __    .  ..  .       , "
 echo -e '\033[1;39;44m/  ` _ | _||__| _  __-+-'
