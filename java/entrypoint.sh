@@ -52,7 +52,8 @@ if [ "$ENABLE_AV" = 1 ]; then
 	cp /clamd.conf /home/container/clamav
 	freshclam --config-file=/home/container/clamav/freshclam.conf
 	echo -e "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mScanning the home directory with ClamAV AntiVirus...\033[0m"
-	clamscan -r --move=/home/container/clamav/quarantine --log=/home/container/clamav/logs/clamscan.txt --database=/home/container/clamav/ --include="\.jar$" --exclude="\.paper-remapped$" /home/container
+	echo -e "THIS MAY TAKE FEW MINUTES"
+	clamscan -r --move=/home/container/clamav/quarantine --log=/home/container/clamav/logs/clamscan.txt --database=/home/container/clamav/ --quiet --include="\.jar$" --exclude="\.paper-remapped$" /home/container
 	if find /home/container/clamav/quarantine -type f | grep -q .; then
 		printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;41mQuarantined files are in /clamav/quarantine, Please delete them to remove this warning\033[0m\n"
 		exit
