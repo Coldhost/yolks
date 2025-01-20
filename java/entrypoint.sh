@@ -46,7 +46,7 @@ if [ "$ENABLE_AV" = 1 ]; then
 		printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;41mQuarantined files are in /clamav/quarantine, Please delete them to remove this warning\033[0m\n"
 		exit
 	fi
-	echo -e "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mUpdating Virus Lists...\033[0m"
+	echo -e "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mUpdating Virus Databases...\033[0m"
 	mkdir -p /home/container/clamav/logs /home/container/clamav/quarantine
 	cp /freshclam.conf /home/container/clamav
 	cp /clamd.conf /home/container/clamav
