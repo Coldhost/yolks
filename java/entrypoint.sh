@@ -51,7 +51,6 @@ if [ "$ENABLE_AV" = 1 ]; then
 	echo -e "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mUpdating Virus Databases...\033[0m"
 	mkdir -p /home/container/clamav/logs /home/container/clamav/quarantine
 	cp /freshclam.conf /home/container/clamav
-	cp /clamd.conf /home/container/clamav
 	freshclam --config-file=/home/container/clamav/freshclam.conf
 	echo -e "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mScanning the home directory with ClamAV AntiVirus...\033[0m"
 	echo -e "THIS MAY TAKE UNDER 10 MINUTES"
