@@ -38,6 +38,9 @@ echo -e "\033[1;39;44m                                                     "
 
 echo -e ""
 echo -e "Server is starting... "
+echo -e ""
+echo -e "Commit version: $COMMIT_NUMBER"
+echo -e "Commit message: $COMMIT_MESSAGE"
 
 # Default the TZ environment variable to UTC.
 TZ=${TZ:-UTC}
