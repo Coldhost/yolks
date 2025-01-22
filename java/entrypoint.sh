@@ -56,7 +56,7 @@ cd /home/container || exit 1
 # Update ClamAV definitions (optional but recommended at runtime)
 if [ "$ENABLE_AV" = 1 ]; then
 	if find /home/container/clamav/quarantine -type f | grep -q .; then
-		[ if "$AUTOREMOVE" = 1 ]; then
+		if [ "$AUTOREMOVE" = 1 ]; then
 			printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;41mQuarantined files are in /clamav/quarantine, Deleting...\033[0m\n"
 			rm -rf /home/container/clamav/quarantine/*
 		else
