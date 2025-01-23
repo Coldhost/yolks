@@ -43,6 +43,5 @@ WORKDIR     /home/container
 COPY        ./../commit_count.txt /commit_count.txt
 COPY        ./../entrypoint.sh /entrypoint.sh
 COPY        ./../freshclam.conf /freshclam.conf
-COPY		./../clamd.conf /clamd.conf
 
 CMD         [ "/bin/bash", "/entrypoint.sh" ]

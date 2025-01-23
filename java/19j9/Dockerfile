@@ -39,6 +39,5 @@ WORKDIR     /home/container
 
 COPY        ./../entrypoint.sh /entrypoint.sh
 COPY        ./../freshclam.conf /freshclam.conf
-COPY		./../clamd.conf /clamd.conf
 
 CMD         [ "/bin/bash", "/entrypoint.sh" ]
