@@ -40,12 +40,7 @@ USER        container
 ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
 
-ARG         COMMIT_NUMBER
-ARG			COMMIT_MESSAGE
-
-ENV         COMMIT_NUMBER=$COMMIT_NUMBER
-ENV 		COMMIT_MESSAGE=$COMMIT_MESSAGE
-
+COPY        ./../commit_count.txt /commit_count.txt
 COPY        ./../entrypoint.sh /entrypoint.sh
 COPY        ./../freshclam.conf /freshclam.conf
 COPY		./../clamd.conf /clamd.conf

@@ -42,7 +42,8 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.REGISTRY_TOKEN }}
       - name: Get Commit Count
-        run: echo "COMMIT_COUNT=$(git rev-list --count HEAD)" >> $GITHUB_ENV
+        run: |
+          COMMIT_COUNT=$(git rev-list --count HEAD) && echo "$COMMIT_COUNT" > java/commit_count.txt
         
       - uses: docker/build-push-action@v4
         with:
@@ -53,5 +54,3 @@ jobs:
           tags: |
             ghcr.io/coldhost/yolks:java_${{ matrix.tag }}
           build-args: |
-            COMMIT_NUMBER=${{ env.COMMIT_COUNT }}
-            COMMIT_MESSAGE=${{ github.event.head_commit.message }}
