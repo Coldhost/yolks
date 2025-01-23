@@ -36,6 +36,8 @@ echo -e '\033[1;39;44m/ /__| (_) | | (_| / __  / (_) \__ \ |_ |  __/ |_| | '
 echo -e '\033[1;39;44m\____/\___/|_|\__,_\/ /_/ \___/|___/\__(_)___|\__,_| '
 echo -e "\033[1;39;44m                                                     "
 
+set COMMIT_NUMBER=$(cat /commit_count.txt)
+
 echo -e ""
 echo -e "Server is starting... "
 echo -e ""
