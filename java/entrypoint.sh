@@ -42,7 +42,7 @@ echo -e " "
 echo -e "Server is starting... "
 echo -e " "
 echo -e "Runner version: v$COMMIT_NUMBER"
-echo -e "Developer message: $COMMIT_MESSAGE"
+#echo -e "Developer message: $COMMIT_MESSAGE"
 echo -e " "
 # Default the TZ environment variable to UTC.
 TZ=${TZ:-UTC}
