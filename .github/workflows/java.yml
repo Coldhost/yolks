@@ -41,10 +41,10 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.REGISTRY_TOKEN }}
-      - name: Get Commit Count
+      - name: Get Commit info
         run: |
           COMMIT_COUNT=$(git rev-list --count HEAD) && echo "$COMMIT_COUNT" > java/commit_count.txt
-        
+          COMMIT_MESSAGE=${{ github.event.head_commit.message || 'No commit message available' }} && echo "$COMMIT_MESSAGE" > java/commit_message.txt
       - uses: docker/build-push-action@v4
         with:
           context: ./java
