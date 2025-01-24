@@ -86,6 +86,7 @@ if [ "$ENABLE_AV" = 1 ]; then
 			printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;41mQuarantined files are in /clamav/quarantine, Please delete them to remove this error\033[0m\n"
 			exit
 		fi
+	fi
 else
 	rm -rf /home/container/clamav
     printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mWARNING: Antivirus scanning is disabled.\n"
