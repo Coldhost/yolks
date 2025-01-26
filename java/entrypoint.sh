@@ -57,6 +57,7 @@ cd /home/container || exit 1
 
 # Update ClamAV definitions (optional but recommended at runtime)
 if [ "$ENABLE_AV" = 1 ]; then
+	mkdir -p /home/container/clamav/logs /home/container/clamav/quarantine
 	if find /home/container/clamav/quarantine -type f | grep -q .; then
 		if [ "$AUTOREMOVE" = 1 ]; then
 			printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;41mQuarantined files are in /clamav/quarantine, Deleting...\033[0m\n"
@@ -67,7 +68,6 @@ if [ "$ENABLE_AV" = 1 ]; then
 		fi
 	fi
 	echo -e "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mUpdating Virus Databases...\033[0m"
-	mkdir -p /home/container/clamav/logs /home/container/clamav/quarantine
 	cp /freshclam.conf /home/container/clamav
 	freshclam --config-file=/home/container/clamav/freshclam.conf
 	if [ "$ONLY_PLUGINS" = 1 ]; then
