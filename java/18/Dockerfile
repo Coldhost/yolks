@@ -31,7 +31,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV PS1="container@coldhost.eu~ "
 
 RUN 		apt-get update -y \
-			&& apt-get install -y lsof curl ca-certificates openssl libcap2-bin git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 clamav clamav-daemon \
+			&& apt-get install --no-install-recommends -y lsof curl ca-certificates openssl libcap2-bin git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 clamav clamav-daemon \
 			&& useradd -d /home/container -m container
 
 RUN chown -R container:container /usr/bin/freshclam /var/lib/clamav
