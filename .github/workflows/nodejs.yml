@@ -42,6 +42,10 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.REGISTRY_TOKEN }}
+      - name: Get Commit info
+        run: |
+          COMMIT_COUNT=${{ github.run_number }} && echo "$COMMIT_COUNT" > nodejs/commit_count.txt
+          COMMIT_MESSAGE="${{ github.event.head_commit.message || 'No commit message available' }}" && echo "$COMMIT_MESSAGE" > nodejs/commit_message.txt
       - uses: docker/build-push-action@v4
         with:
           context: ./nodejs

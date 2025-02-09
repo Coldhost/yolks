@@ -34,5 +34,9 @@ USER        container
 ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
 
+COPY        ./../commit_count.txt /commit_count.txt
+COPY        ./../commit_message.txt /commit_message.txt
 COPY        ./../entrypoint.sh /entrypoint.sh
+COPY        ./../freshclam.conf /freshclam.conf
+
 CMD         [ "/bin/ash", "/entrypoint.sh" ]
