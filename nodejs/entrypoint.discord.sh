@@ -22,6 +22,17 @@
 # SOFTWARE.
 #
 
+# if [[ ! -d .git ]]; then git clone https://${USERNAME}:${ACCESS_TOKEN}@github.com/${GIT_ADDRESS} . || { echo "Failed to clone repo"; exit 1; }; fi;
+# if [[ -d .git ]] && [[ ${AUTO_UPDATE} == "1" ]]; then find . -mindepth 1 -not -path "./.git*" -exec rm -rf {} +;
+# git reset --hard && git pull || { echo "Failed to update repo"; exit 1; }; fi; if [[ -n "${NODE_PACKAGES}" ]]; then /usr/local/bin/npm install ${NODE_PACKAGES};
+# fi; if [[ -n "${UNNODE_PACKAGES}" ]]; then /usr/local/bin/npm uninstall ${UNNODE_PACKAGES}; fi; if [[ -f /home/container/package.json ]];
+# then rm -rf node_modules package-lock.json && /usr/local/bin/npm install || { echo "Failed to install dependencies"; exit 1; };
+# else echo "package.json not found, skipping npm install"; fi; if [[ -f "/home/container/${MAIN_FILE}" ]];
+# then case "${MAIN_FILE}" in counting.js|index.js|ticket.js|token.js|verify.js|vitej.js) /usr/local/bin/node "/home/container/${MAIN_FILE}" ${NODE_ARGS} ;; *) /usr/local/bin/ts-node --esm "/home/container/${MAIN_FILE}" ${NODE_ARGS} ;; esac;
+# else echo "Main file ${MAIN_FILE} not found, aborting"; exit 1; fi
+#
+# this will be useful
+
 # Clear so it shows nicer
 clear
 
