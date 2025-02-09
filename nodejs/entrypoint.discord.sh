@@ -82,13 +82,13 @@ if [ "$ENABLE_AV" = 1 ]; then
 	echo -e "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mUpdating Virus Databases...\033[0m"
 	cp /freshclam.conf /home/container/clamav
 	freshclam --config-file=/home/container/clamav/freshclam.conf
-	if [ "$ONLY_PLUGINS" = 1 ]; then
-		echo -e "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mScanning plugins with ClamAV AntiVirus...\033[0m"
-		clamscan -r --move=/home/container/clamav/quarantine --log=/home/container/clamav/logs/clamscan.txt --database=/home/container/clamav/ --infected --include="^[^\.]+$" --include="\.jar$" --exclude-dir="\.cache" --exclude="\.paper-remapped$" /home/container/plugins
+	if [ "$ONLY_MODULES" = 1 ]; then
+		echo -e "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mScanning node_modules with ClamAV AntiVirus...\033[0m"
+		clamscan -r --move=/home/container/clamav/quarantine --log=/home/container/clamav/logs/clamscan.txt --database=/home/container/clamav/ --infected --include="^[^\.]+$" --include="\.js$" --exclude-dir="\.cache" --exclude="\.paper-remapped$" /home/container/node_modules
 	else
 		echo -e "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mScanning the home directory with ClamAV AntiVirus...\033[0m"
 		echo -e "THIS MAY TAKE UNDER 10 MINUTES"
-		clamscan -r --move=/home/container/clamav/quarantine --log=/home/container/clamav/logs/clamscan.txt --database=/home/container/clamav/ --infected --include="^[^\.]+$" --include="\.jar$" --exclude-dir="\.cache" --exclude="\.paper-remapped$" /home/container
+		clamscan -r --move=/home/container/clamav/quarantine --log=/home/container/clamav/logs/clamscan.txt --database=/home/container/clamav/ --infected --include="^[^\.]+$" --include="\.js$" --exclude-dir="\.cache" --exclude="\.paper-remapped$" /home/container
 	fi
 	if find /home/container/clamav/quarantine -type f | grep -q .; then
 		if [ "$AUTOREMOVE" = 1 ]; then
