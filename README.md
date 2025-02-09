@@ -90,19 +90,19 @@ is tagged correctly.
     * `ghcr.io/coldhost/yolks:nodejs_18`
   * [`node20`](https://github.com/Coldhost/yolks/tree/master/nodejs/20)
     * `ghcr.io/coldhost/yolks:nodejs_20`
-  * [`node12`](https://github.com/Coldhost/yolks/tree/master/nodejs/discord.js-12)
+  * [`discord.js-node12`](https://github.com/Coldhost/yolks/tree/master/nodejs/discord.js-12)
     * `ghcr.io/coldhost/yolks:nodejs_discord.js-12`
-  * [`node14`](https://github.com/Coldhost/yolks/tree/master/nodejs/discord.js-14)
+  * [`discord.js-node14`](https://github.com/Coldhost/yolks/tree/master/nodejs/discord.js-14)
     * `ghcr.io/coldhost/yolks:nodejs_discord.js-14`
-  * [`node15`](https://github.com/Coldhost/yolks/tree/master/nodejs/discord.js-15)
+  * [`discord.js-node15`](https://github.com/Coldhost/yolks/tree/master/nodejs/discord.js-15)
     * `ghcr.io/coldhost/yolks:nodejs_discord.js-15`
-  * [`node16`](https://github.com/Coldhost/yolks/tree/master/nodejs/discord.js-16)
+  * [`discord.js-node16`](https://github.com/Coldhost/yolks/tree/master/nodejs/discord.js-16)
     * `ghcr.io/coldhost/yolks:nodejs_discord.js-16`
-  * [`node17`](https://github.com/Coldhost/yolks/tree/master/nodejs/discord.js-17)
+  * [`discord.js-node17`](https://github.com/Coldhost/yolks/tree/master/nodejs/discord.js-17)
     * `ghcr.io/coldhost/yolks:nodejs_discord.js-17`
-  * [`node18`](https://github.com/Coldhost/yolks/tree/master/nodejs/discord.js-18)
+  * [`discord.js-node18`](https://github.com/Coldhost/yolks/tree/master/nodejs/discord.js-18)
     * `ghcr.io/coldhost/yolks:nodejs_discord.js-18`
-  * [`node20`](https://github.com/Coldhost/yolks/tree/master/nodejs/discord.js-20)
+  * [`discord.js-node20`](https://github.com/Coldhost/yolks/tree/master/nodejs/discord.js-20)
     * `ghcr.io/coldhost/yolks:nodejs_discord.js-20`
 * [`python`](https://github.com/Coldhost/yolks/tree/master/python)
   * [`python3.7`](https://github.com/Coldhost/yolks/tree/master/python/3.7)
