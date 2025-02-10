@@ -65,6 +65,23 @@ export TZ
 INTERNAL_IP=$(ip route get 1 | awk '{print $(NF-2);exit}')
 export INTERNAL_IP
 
+# FUNCTIONS
+package_manager_install() {
+    if command -v yarn &> /dev/null; then
+        echo "Using yarn"
+        yarn install
+    elif command -v pnpm &> /dev/null; then
+        echo "Using pnpm"
+        pnpm install
+    elif command -v npm &> /dev/null; then
+        echo "Using npm"
+        npm install
+    else
+        echo "No package manager found, using npm (fallback)"
+        npm install
+    fi
+}
+
 # Switch to the container's working directory
 cd /home/container || exit 1
 
@@ -111,6 +128,11 @@ if [ "$GIT_DOWNLOAD" = 1 ]; then
 	else
 		printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mPlease reinstall the server first (not a git repository)\033[0m\n"
 	fi
+fi
+
+if [ "$INSTALL_PACKAGES" = 1 ]; then
+    printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[0mInstalling Dependencies...\n"
+	package_manager_install()
 fi
 
 # Print Node.js version
