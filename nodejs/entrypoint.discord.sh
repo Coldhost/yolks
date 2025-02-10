@@ -132,7 +132,7 @@ fi
 
 if [ "$INSTALL_PACKAGES" = 1 ]; then
     printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[0mInstalling Dependencies...\n"
-	package_manager_install()
+	package_manager_install
 fi
 
 # Print Node.js version
