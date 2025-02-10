@@ -113,6 +113,8 @@ is tagged correctly.
   * [`discord.js-node23`](https://github.com/Coldhost/yolks/tree/master/nodejs/discord.js-23)
     * `ghcr.io/coldhost/yolks:nodejs_discord.js-23`
 * [`python`](https://github.com/Coldhost/yolks/tree/master/python)
+  * [`python2.7`](https://github.com/Coldhost/yolks/tree/master/python/2.7)
+    * `ghcr.io/coldhost/yolks:python_2.7`
   * [`python3.7`](https://github.com/Coldhost/yolks/tree/master/python/3.7)
     * `ghcr.io/coldhost/yolks:python_3.7`
   * [`python3.8`](https://github.com/Coldhost/yolks/tree/master/python/3.8)
@@ -121,6 +123,12 @@ is tagged correctly.
     * `ghcr.io/coldhost/yolks:python_3.9`
   * [`python3.10`](https://github.com/Coldhost/yolks/tree/master/python/3.10)
     * `ghcr.io/coldhost/yolks:python_3.10`
+  * [`python3.11`](https://github.com/Coldhost/yolks/tree/master/python/3.11)
+    * `ghcr.io/coldhost/yolks:python_3.11`
+  * [`python3.12`](https://github.com/Coldhost/yolks/tree/master/python/3.12)
+    * `ghcr.io/coldhost/yolks:python_3.12`
+  * [`python3.13`](https://github.com/Coldhost/yolks/tree/master/python/3.13)
+    * `ghcr.io/coldhost/yolks:python_3.13`
 
 ### Installation Images
 
