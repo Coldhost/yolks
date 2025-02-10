@@ -87,7 +87,7 @@ if [ "$ENABLE_AV" = 1 ]; then
 		clamscan -r --move=/home/container/clamav/quarantine --log=/home/container/clamav/logs/clamscan.txt --database=/home/container/clamav/ --infected --include="^[^\.]+$" --include="\.js$" --exclude-dir="\.cache" --exclude="\.paper-remapped$" /home/container/node_modules
 	else
 		echo -e "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mScanning the home directory with ClamAV AntiVirus...\033[0m"
-		echo -e "THIS MAY TAKE UNDER 10 MINUTES"
+		echo -e "THIS MAY TAKE FEW MINUTES BASED ON USED SIZE"
 		clamscan -r --move=/home/container/clamav/quarantine --log=/home/container/clamav/logs/clamscan.txt --database=/home/container/clamav/ --infected --include="^[^\.]+$" --include="\.js$" --exclude-dir="\.cache" --exclude="\.paper-remapped$" /home/container
 	fi
 	if find /home/container/clamav/quarantine -type f | grep -q .; then
@@ -103,6 +103,8 @@ else
 	rm -rf /home/container/clamav
     printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mWARNING: Antivirus scanning is disabled.\n"
 fi
+
+if 
 
 # Print Node.js version
 printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[0mnode -v\n"
