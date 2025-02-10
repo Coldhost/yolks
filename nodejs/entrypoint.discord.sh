@@ -130,7 +130,7 @@ if [ "$GIT_DOWNLOAD" = 1 ]; then
 	fi
 fi
 
-if [ "$INSTALL_PACKAGES" = 1 ]; then
+if [ "$INSTALL_PKGS" = 1 ]; then
     printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[0mInstalling Dependencies...\n"
 	package_manager_install
 fi
