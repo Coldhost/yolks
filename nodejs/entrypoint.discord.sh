@@ -81,6 +81,7 @@ package_manager_install() {
 		echo "Using npm (default fallback)"
 		npm install
 	fi
+}
 # Switch to the container's working directory
 cd /home/container || exit 1
 
