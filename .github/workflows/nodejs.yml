@@ -33,7 +33,7 @@ jobs:
           - discord.js-18
           - discord.js-20
           - discord.js-22
-          - discord.ks-23
+          - discord.js-23
     steps:
       - uses: actions/checkout@v3
       # Setup QEMU for ARM64 Build
