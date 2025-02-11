@@ -66,21 +66,20 @@ INTERNAL_IP=$(ip route get 1 | awk '{print $(NF-2);exit}')
 export INTERNAL_IP
 
 # FUNCTIONS
+
 package_manager_install() {
-    if command -v yarn &> /dev/null; then
+    if [ "$PACKAGE_MANAGER" = "yarn" ]; then
         echo "Using yarn"
         yarn install
-    elif command -v pnpm &> /dev/null; then
-        echo "Using pnpm"
+    elif [ "$PACKAGE_MANAGER" = "pnpm" ]; then
+		echo "Using pnpm"
         pnpm install
-    elif command -v npm &> /dev/null; then
-        echo "Using npm"
+    elif [ "$PACKAGE_MANAGER" = "npm" ]; then
+		echo "Using npm"
         npm install
-    else
-        echo "No package manager found, using npm (fallback)"
-        npm install
-    fi
-}
+	else
+		echo "Using npm (default fallback)"
+		npm install
 
 # Switch to the container's working directory
 cd /home/container || exit 1
