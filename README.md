@@ -28,6 +28,10 @@ When adding a new version to an existing image, such as `java v42`, you'd add it
 is tagged correctly.
 
 ## Available Images (Always check for tagged packages, not everything is enabled to be packaged)
+[![Installers](https://github.com/Coldhost/yolks/actions/workflows/installers.yml/badge.svg)](https://github.com/Coldhost/yolks/actions/workflows/installers.yml)
+[![Java](https://github.com/Coldhost/yolks/actions/workflows/java.yml/badge.svg)](https://github.com/Coldhost/yolks/actions/workflows/java.yml)
+[![NodeJS](https://github.com/Coldhost/yolks/actions/workflows/nodejs.yml/badge.svg)](https://github.com/Coldhost/yolks/actions/workflows/nodejs.yml)
+[![Python](https://github.com/Coldhost/yolks/actions/workflows/python.yml/badge.svg)](https://github.com/Coldhost/yolks/actions/workflows/python.yml)
 
 * [`base oses`](https://github.com/Coldhost/yolks/tree/master/oses)
   * [`alpine`](https://github.com/Coldhost/yolks/tree/master/oses/alpine)
