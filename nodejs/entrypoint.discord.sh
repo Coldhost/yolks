@@ -138,6 +138,8 @@ fi
 # Print Node.js version
 printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[0mnode -v\n"
 node -v
+printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[0mnpm -v\n"
+npm -v
 
 # Convert all of the "{{VARIABLE}}" parts of the command into the expected shell
 # variable format of "${VARIABLE}" before evaluating the string and automatically
