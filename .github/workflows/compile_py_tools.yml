@@ -61,6 +61,7 @@ jobs:
           run: |
             VERSION=v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }}
             mkdir -p ghcr_tools
+            ls
             mv dist/tools ghcr_tools/tools
             chmod +x ghcr_tools/tools
             tar -czf ghcr_tools.tar.gz -C ghcr_tools .
