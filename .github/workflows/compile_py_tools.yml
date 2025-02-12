@@ -1,46 +1,63 @@
 name: compile tools
 
+
 on:
-  push:
-    branches:
-      - main  # Adjust branch if needed
-    paths:
-      - shared/
-  workflow_dispatch:
-
-permissions:
-  packages: write  # Required for GHCR upload
-
+    push:
+      branches:
+        - main
+      paths:
+        - shared/tools/
+    workflow_dispatch:
+  
 jobs:
-  compile:
-    runs-on: ubuntu-latest
+    build:
+      runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          version: [full, minimal]  # Full vs Minimal
+          debug: [true, false]  # Debug vs Release
+      name: Build ${{ matrix.version }} ${{ matrix.debug }} Build
+  
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+  
+        - name: Generate config.yaml for ${{ matrix.version }} ${{ matrix.debug }}
+          run: |
+            VERSION=$(date +%Y%m%d%H%M%S)  # Use timestamp for version
+            DEBUG=${{ matrix.debug }}  # Set debug flag based on matrix value
+            MODULES=$(ls modules/ | grep -v '^\.' | tr '\n' ',' | sed 's/,$//')
+  
+            echo "version: \"$VERSION\"" > config.yaml
+            echo "debug: $DEBUG" >> config.yaml
+            echo "modules:" >> config.yaml
+  
+            if [ -n "$MODULES" ]; then
+              IFS=',' read -ra MODULE_LIST <<< "$MODULES"
+              for MODULE in "${MODULE_LIST[@]}"; do
+                echo "  - $MODULE" >> config.yaml
+              done
+            else
+              echo "  - No modules" >> config.yaml
+            fi
+  
+            cat config.yaml
+  
+        - name: Install dependencies
+          run: |
+            sudo apt-get install yq
+            pip install -r requirements.txt
+  
+        - name: Build ${{ matrix.version }} ${{ matrix.debug }}
+          run: |
+            chmod +x build.sh
+            ./build.sh --config config.yaml
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+        - name: Login to GHCR
+          run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install dependencies
-        run: pip install click pyinstaller
-
-      - name: Compile tools.py
-        run: pyinstaller --onefile --name tools shared/tools.py
-
-      - name: Archive the binary directly (no folder)
-        run: |
-          mv dist/tools ./tools
-          chmod +x tools
-          tar -czf tools.tar.gz tools
-
-      - name: Login to GHCR
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-
-      - name: Upload Binary to GHCR
-        run: |
-          echo "Pushing tarball to GHCR..."
-          docker build -t ghcr.io/coldhost/tools-binary:latest .
-          docker push ghcr.io/coldhost/tools-binary:latest
+        - name: Upload Binary to GHCR
+          run: |
+            echo "Pushing tarball to GHCR..."
+            docker build -t ghcr.io/coldhost/tools-binary:latest .
+            docker push ghcr.io/coldhost/tools-binary:latest
