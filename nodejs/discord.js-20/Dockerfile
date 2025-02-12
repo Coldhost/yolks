@@ -27,6 +27,13 @@ LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 LABEL       org.opencontainers.image.source="https://github.com/Coldhost/yolks"
 LABEL       org.opencontainers.image.licenses=MIT
 
+RUN			apk add --update --no-cache tar podman \
+			&& podman run --rm -v $(pwd):/mnt ghcr.io/coldhost/tools-cli:latest-full-release sh -c 'cp /ghcr_tools.tar.gz /mnt' \
+			&& apk del podman \
+			&& rm -rf ~/.local/share/containers ~/.config/containers \
+			&& tar -xvf ghcr_tools.tar.gz \
+			&& mv ghcr_tools/tools /bin/tools
+
 RUN         apk add --update --no-cache ca-certificates curl jq ffmpeg git openssl sqlite tar tzdata clamav clamav-daemon \
 	&& adduser -D -h /home/container container\
 	&& npm install -g npm
