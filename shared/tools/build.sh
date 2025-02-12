@@ -27,11 +27,3 @@ PYINSTALLER_CMD+=" main.py"
 # Run the pyinstaller command
 echo "Running command: $PYINSTALLER_CMD"
 eval "$PYINSTALLER_CMD"
-
-# Check if pyinstaller ran successfully
-if [ $? -eq 0 ]; then
-    echo "Build completed successfully!"
-else
-    echo "Error during build!"
-    exit 1
-fi
