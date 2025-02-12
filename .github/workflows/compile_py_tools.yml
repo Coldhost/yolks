@@ -1,0 +1,46 @@
+name: Compile & Upload Binary to GHCR
+
+on:
+  push:
+    branches:
+      - main  # Adjust branch if needed
+    paths:
+      - shared/tools.py
+  workflow_dispatch:
+
+permissions:
+  packages: write  # Required for GHCR upload
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install click pyinstaller
+
+      - name: Compile tools.py
+        run: pyinstaller --onefile --name tools tools.py
+
+      - name: Archive the binary directly (no folder)
+        run: |
+          mv dist/tools ./tools
+          chmod +x tools
+          tar -czf tools.tar.gz tools
+
+      - name: Login to GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Upload Binary to GHCR
+        run: |
+          echo "Pushing tarball to GHCR..."
+          docker build -t ghcr.io/coldhost/tools-binary:latest .
+          docker push ghcr.io/coldhost/tools-binary:latest
