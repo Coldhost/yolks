@@ -30,7 +30,7 @@ if os.path.exists(modules_dir) and os.path.isdir(modules_dir):
 @cli.command()
 def version():
     """Start the main tool."""
-    print("")
+    logger.info("v1.0 TESTING")
 
 if __name__ == "__main__":
     cli()
