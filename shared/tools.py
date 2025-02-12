@@ -28,9 +28,9 @@ if os.path.exists(modules_dir) and os.path.isdir(modules_dir):
 
 # Add a basic command as a placeholder if needed
 @cli.command()
-def start():
+def version():
     """Start the main tool."""
-    print("main is working")
+    print("")
 
 if __name__ == "__main__":
     cli()
