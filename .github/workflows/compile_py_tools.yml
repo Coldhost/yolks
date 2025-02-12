@@ -5,7 +5,7 @@ on:
     branches:
       - main  # Adjust branch if needed
     paths:
-      - shared/tools.py
+      - shared/
   workflow_dispatch:
 
 permissions:
