@@ -148,22 +148,18 @@ if [ ! -s "package.json" ]; then
     exit 1
 fi
 
-# Ensure "main" exists, default to "index.js" if missing
-MAIN_FILE=$(jq -r 'if has("main") then .main else "index.js" end' "package.json")
+MAIN_FILE=$(jq -r 'if has("main") then .main else "index.js" end' package.json)
 
-# Add "main" if missing and ensure "scripts" exists, then add "start" if missing
-UPDATED_JSON=$(jq --arg main "$MAIN_FILE" '
-  if has("main") | not then . + {main: $main} else . end |
-  if has("scripts") then 
-    if .scripts | has("start") | not then .scripts += {"start": "node \($main)"} else . end 
-  else 
-    . + {scripts: {"start": "node \($main)"}} 
-  end' "package.json")
+# If "main" is missing, add it
+jq --arg main "$MAIN_FILE" 'if has("main") | not then . + {main: $main} else . end' package.json > tmp.json && mv tmp.json package.json
 
-# Save the updated package.json
-echo "$UPDATED_JSON" > "package.json"
+# Ensure "scripts" exists
+jq 'if has("scripts") | not then . + {scripts: {}} else . end' package.json > tmp.json && mv tmp.json package.json
 
-echo "To edit start file please edit the package.json"
+# Ensure "start" script exists in "scripts"
+jq --arg main "$MAIN_FILE" 'if .scripts | has("start") | not then .scripts += {"start": "node \($main)"} else . end' package.json > tmp.json && mv tmp.json package.json
+
+echo "To edit start options please edit the package.json"
 
 # Print Node.js version
 printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[0mnode -v\n"
