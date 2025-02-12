@@ -31,7 +31,7 @@ jobs:
             echo "version: \"$VERSION\"" > config.yaml
             echo "modules:" >> config.yaml
   
-            if [ -n "$MODULES" ]; then
+            if [ -n "$MODULES" ] && [ "${{ matrix.version }}" != "minimal" ]; then
               IFS=',' read -ra MODULE_LIST <<< "$MODULES"
               for MODULE in "${MODULE_LIST[@]}"; do
                 echo "  - $MODULE" >> config.yaml
