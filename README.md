@@ -133,6 +133,22 @@ is tagged correctly.
     * `ghcr.io/coldhost/yolks:python_3.12`
   * [`python3.13`](https://github.com/Coldhost/yolks/tree/master/python/3.13)
     * `ghcr.io/coldhost/yolks:python_3.13`
+  * [`discord.py-python2.7`](https://github.com/Coldhost/yolks/tree/master/python/discord.py-2.7)
+    * `ghcr.io/coldhost/yolks:python_discord.py-2.7`
+  * [`discord.py-python3.7`](https://github.com/Coldhost/yolks/tree/master/python/discord.py-3.7)
+    * `ghcr.io/coldhost/yolks:python_discord.py-3.7`
+  * [`discord.py-python3.8`](https://github.com/Coldhost/yolks/tree/master/python/discord.py-3.8)
+    * `ghcr.io/coldhost/yolks:python_discord.py-3.8`
+  * [`discord.py-python3.9`](https://github.com/Coldhost/yolks/tree/master/python/discord.py-3.9)
+    * `ghcr.io/coldhost/yolks:python_discord.py-3.9`
+  * [`discord.py-python3.10`](https://github.com/Coldhost/yolks/tree/master/python/discord.py-3.10)
+    * `ghcr.io/coldhost/yolks:python_discord.py-3.10`
+  * [`discord.py-python3.11`](https://github.com/Coldhost/yolks/tree/master/python/discord.py-3.11)
+    * `ghcr.io/coldhost/yolks:python_discord.py-3.11`
+  * [`discord.py-python3.12`](https://github.com/Coldhost/yolks/tree/master/python/discord.py-3.12)
+    * `ghcr.io/coldhost/yolks:python_discord.py-3.12`
+  * [`discord.py-python3.13`](https://github.com/Coldhost/yolks/tree/master/python/discord.py-3.13)
+    * `ghcr.io/coldhost/yolks:python_discord.py-3.13`
 
 ### Installation Images
 
