@@ -14,7 +14,7 @@ else
 fi
 
 # Start the base pyinstaller command
-PYINSTALLER_CMD="pyinstaller --onefile --name tool-${VERSION}-${BUILD_MODE}"
+PYINSTALLER_CMD="pyinstaller --onefile --name tools"
 
 # If it's a full build, add the entire modules/ directory
 if [[ "$BUILD_MODE" != "minimal" ]]; then
