@@ -1,6 +1,6 @@
 import os
 import importlib
-import click
+import click # type: ignore
 import logging
 logger = logging.Logger("main",logging.INFO)
 

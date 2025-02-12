@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import json
-import click
+import click # type: ignore
 import sys
 
 @click.group()
