@@ -45,13 +45,14 @@ jobs:
         - name: Install dependencies
           working-directory: shared/tools
           run: |
+            apt install python3
             pip install -r requirements.txt
   
-        - name: Build ${{ matrix.version }} ${{ matrix.debug }}
+        - name: Build v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }}
           working-directory: shared/tools
           run: |
             chmod +x build.sh
-            ./build.sh --config config.yaml
+            ./build.sh
 
         - name: Login to GHCR
           run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
