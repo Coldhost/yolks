@@ -26,15 +26,9 @@ jobs:
           working-directory: shared/tools
           run: |
             VERSION=v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }}
-            if [ "${{ matrix.type }}" == "debug" ]; then
-                DEBUG=true
-            else
-                DEBUG=false
-            fi
             MODULES=$(ls modules/ | grep -v '^\.' | tr '\n' ',' | sed 's/,$//')
   
             echo "version: \"$VERSION\"" > config.yaml
-            echo "debug: $DEBUG" >> config.yaml
             echo "modules:" >> config.yaml
   
             if [ -n "$MODULES" ]; then
