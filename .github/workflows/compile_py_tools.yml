@@ -57,8 +57,14 @@ jobs:
         - name: Login to GHCR
           run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-        - name: Upload Binary to GHCR
+        - name: Package and Push Binary to GHCR
           run: |
-            echo "Pushing tarball to GHCR..."
-            docker build -t ghcr.io/coldhost/tools-binary:latest .
-            docker push ghcr.io/coldhost/tools-binary:latest
+            VERSION=v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }}
+            mkdir -p ghcr_tools
+            mv dist/tools ghcr_tools/tools
+            chmod +x ghcr_tools/tools
+            tar -czf ghcr_tools.tar.gz -C ghcr_tools .
+            echo "Pushing to GHCR..."
+            docker build -t ghcr.io/coldhost/tools-cli: .
+            docker push ghcr.io/coldhost/tools-cli:latest-${{ matrix.version }}-${{ matrix.type }}
+            docker push ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }}
