@@ -67,6 +67,12 @@ jobs:
             chmod +x ghcr_tools/tools
             tar -czf ghcr_tools.tar.gz -C ghcr_tools .
             echo "Pushing to GHCR..."
-            docker build -t ghcr.io/coldhost/tools-cli: .
+
+            docker build -t ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} .
+
+            docker tag ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} ghcr.io/coldhost/tools-cli:latest-${{ matrix.version }}-${{ matrix.type }}
+            docker tag ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} ghcr.io/coldhost/tools-cli:${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }}
+
+
             docker push ghcr.io/coldhost/tools-cli:latest-${{ matrix.version }}-${{ matrix.type }}
-            docker push ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }}
+            docker push ghcr.io/coldhost/tools-cli:${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }}
