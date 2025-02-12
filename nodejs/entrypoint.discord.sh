@@ -135,6 +135,36 @@ if [ "$INSTALL_PKGS" = 1 ]; then
 	package_manager_install
 fi
 
+
+# Check if the package.json file exists
+if [ ! -f "$PACKAGE_JSON" ]; then
+    echo "Error: package.json not found!"
+    exit 1
+fi
+
+# Check if the file is empty
+if [ ! -s "$PACKAGE_JSON" ]; then
+    echo "Error: package.json is empty!"
+    exit 1
+fi
+
+# Ensure "main" exists, default to "index.js" if missing
+MAIN_FILE=$(jq -r 'if has("main") then .main else "index.js" end' "$PACKAGE_JSON")
+
+# Add "main" if missing and ensure "scripts" exists, then add "start" if missing
+UPDATED_JSON=$(jq --arg main "$MAIN_FILE" '
+  if has("main") | not then . + {main: $main} else . end |
+  if has("scripts") then 
+    if .scripts | has("start") | not then .scripts += {"start": "node \($main)"} else . end 
+  else 
+    . + {scripts: {"start": "node \($main)"}} 
+  end' "$PACKAGE_JSON")
+
+# Save the updated package.json
+echo "$UPDATED_JSON" > "$PACKAGE_JSON"
+
+echo "To edit start file please edit the package.json"
+
 # Print Node.js version
 printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[0mnode -v\n"
 node -v
