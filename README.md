@@ -21,6 +21,9 @@ example of this would be something like Java or Python which are used for runnin
 All of these images are available for `linux/amd64` and `linux/arm64` versions, unless otherwise specified, to use
 these images on an arm64 system, no modification to them or the tag is needed, they should just work.
 
+Tools is set of scripts that helps with functions that arent really easy with bash and more packages
+They are compiled and put onto the docker image, so we dont need to install python on every docker
+
 ## Contributing
 
 When adding a new version to an existing image, such as `java v42`, you'd add it within a child folder of `java`, so
@@ -157,3 +160,14 @@ is tagged correctly.
 
 * [`debian-install`](https://github.com/Coldhost/yolks/tree/master/installers/debian)
   * `ghcr.io/coldhost/installers:debian`
+
+## Tools CLI
+
+* [`latest full-release tools`](https://github.com/Coldhost/yolks/tree/master/shared/tools)
+  * `ghcr.io/coldhost/tools-cli:latest-full-release`
+* [`latest full-debug tools`](https://github.com/Coldhost/yolks/tree/master/shared/tools)
+  * `ghcr.io/coldhost/toola-cli:latest-full-debug`
+* [`latest minimal-release tools`](https://github.com/Coldhost/yolks/tree/master/shared/tools)
+  * `ghcr.io/coldhost/tools-cli:latest-minimal-release`
+* [`latest minimal-debug tools`](https://github.com/Coldhost/yolks/tree/master/shared/tools)
+  * `ghcr.io/coldhost/tools-cli:latest-minimal-debug`
