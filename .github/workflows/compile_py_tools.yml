@@ -45,7 +45,7 @@ jobs:
         - name: Install dependencies
           working-directory: shared/tools
           run: |
-            apt install python3
+            sudo apt install python3
             pip install -r requirements.txt
   
         - name: Build v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }}
