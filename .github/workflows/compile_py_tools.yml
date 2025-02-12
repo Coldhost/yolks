@@ -1,4 +1,4 @@
-name: Compile & Upload Binary to GHCR
+name: compile tools
 
 on:
   push:
