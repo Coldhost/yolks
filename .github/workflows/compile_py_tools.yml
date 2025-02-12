@@ -79,7 +79,6 @@ jobs:
 
         - name: Push to GHCR
           run: |
-            docker build -t ghcr.io/coldhost/tools-cli:
             docker tag ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} ghcr.io/coldhost/tools-cli:latest-${{ matrix.version }}-${{ matrix.type }}
             docker tag ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} ghcr.io/coldhost/tools-cli:${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }}
 
