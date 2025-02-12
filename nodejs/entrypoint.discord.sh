@@ -137,19 +137,19 @@ fi
 
 
 # Check if the package.json file exists
-if [ ! -f "$PACKAGE_JSON" ]; then
+if [ ! -f "package.json" ]; then
     echo "Error: package.json not found!"
     exit 1
 fi
 
 # Check if the file is empty
-if [ ! -s "$PACKAGE_JSON" ]; then
+if [ ! -s "package.json" ]; then
     echo "Error: package.json is empty!"
     exit 1
 fi
 
 # Ensure "main" exists, default to "index.js" if missing
-MAIN_FILE=$(jq -r 'if has("main") then .main else "index.js" end' "$PACKAGE_JSON")
+MAIN_FILE=$(jq -r 'if has("main") then .main else "index.js" end' "package.json")
 
 # Add "main" if missing and ensure "scripts" exists, then add "start" if missing
 UPDATED_JSON=$(jq --arg main "$MAIN_FILE" '
@@ -158,10 +158,10 @@ UPDATED_JSON=$(jq --arg main "$MAIN_FILE" '
     if .scripts | has("start") | not then .scripts += {"start": "node \($main)"} else . end 
   else 
     . + {scripts: {"start": "node \($main)"}} 
-  end' "$PACKAGE_JSON")
+  end' "package.json")
 
 # Save the updated package.json
-echo "$UPDATED_JSON" > "$PACKAGE_JSON"
+echo "$UPDATED_JSON" > "package.json"
 
 echo "To edit start file please edit the package.json"
 
