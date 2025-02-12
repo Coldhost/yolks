@@ -28,9 +28,17 @@ if os.path.exists(modules_dir) and os.path.isdir(modules_dir):
 
 # Add a basic command as a placeholder if needed
 @cli.command()
-def version():
+def dumpconfig():
     """Start the main tool."""
-    logger.info("v1.0 TESTING")
+    with open("config.yaml") as f:
+        config = f.read()
+        logger.info(config)
+
+@cli.command()
+def version():
+    with open("config.yaml") as f:
+        config = f.read()
+        
 
 if __name__ == "__main__":
     cli()
