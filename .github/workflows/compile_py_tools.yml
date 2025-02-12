@@ -28,7 +28,7 @@ jobs:
         run: pip install click pyinstaller
 
       - name: Compile tools.py
-        run: pyinstaller --onefile --name tools tools.py
+        run: pyinstaller --onefile --name tools shared/tools.py
 
       - name: Archive the binary directly (no folder)
         run: |
