@@ -15,18 +15,22 @@ jobs:
       strategy:
         matrix:
           version: [full, minimal]  # Full vs Minimal
-          debug: [true, false]  # Debug vs Release
-      name: Build ${{ matrix.version }} ${{ matrix.debug }} Build
+          type: [debug,release]  # Debug vs Release
+      name: Build v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} Build
   
       steps:
         - name: Checkout code
           uses: actions/checkout@v2
   
-        - name: Generate config.yaml for ${{ matrix.version }} ${{ matrix.debug }}
+        - name: Generate config.yaml for ${{ matrix.version }} ${{ matrix.type }}
           working-directory: shared/tools
           run: |
-            VERSION=$(date +%Y%m%d%H%M%S)  # Use timestamp for version
-            DEBUG=${{ matrix.debug }}  # Set debug flag based on matrix value
+            VERSION=v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }}
+            if [ "${{ matrix.type }}" == "debug" ]; then
+                DEBUG=true
+            else
+                DEBUG=false
+            fi
             MODULES=$(ls modules/ | grep -v '^\.' | tr '\n' ',' | sed 's/,$//')
   
             echo "version: \"$VERSION\"" > config.yaml
