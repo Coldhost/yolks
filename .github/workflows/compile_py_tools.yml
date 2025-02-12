@@ -6,7 +6,7 @@ on:
       branches:
         - main
       paths:
-        - shared/tools/
+        - shared/tools/**
     workflow_dispatch:
   
 jobs:
