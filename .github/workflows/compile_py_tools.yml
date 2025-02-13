@@ -38,19 +38,12 @@ jobs:
         - name: Dockerize the Tarball
           working-directory: shared/tools
           run: |
-            # Build the Docker image
+            # Build the Docker image for multiple architectures and tag it
             docker buildx build --platform linux/amd64,linux/arm64 \
             --build-arg RUN_NUMBER=${{ github.run_number }} \
             --build-arg MATRIX_VERSION=${{ matrix.version }} \
             --build-arg MATRIX_TYPE=${{ matrix.type }} \
-            -t ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} .
-
-        - name: Push to GHCR
-          run: |
-            docker tag ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} ghcr.io/coldhost/tools-cli:latest-${{ matrix.version }}-${{ matrix.type }}
-            docker tag ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }}
-            docker tag ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} ghcr.io/coldhost/tools-cli:${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }}
-
-            docker push ghcr.io/coldhost/tools-cli:latest-${{ matrix.version }}-${{ matrix.type }}
-            docker push ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }}
-            docker push ghcr.io/coldhost/tools-cli:${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }}
+            --tag ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} \
+            --tag ghcr.io/coldhost/tools-cli:latest-${{ matrix.version }}-${{ matrix.type }} \
+            --tag ghcr.io/coldhost/tools-cli:${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} \
+            --push .
