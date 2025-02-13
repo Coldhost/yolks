@@ -36,15 +36,8 @@ PYINSTALLER_CMD="pyinstaller --add-data \"config.yaml:.\" --onefile --name tools
 # If it's a full build, add the entire modules/ directory
 if [[ "$BUILD_MODE" != "minimal" ]]; then
     PYINSTALLER_CMD+=" --add-data \"modules:modules\""
-
-    # Find all Python files in modules and convert to --hidden-import format
-    PYTHON_MODULES=$(find modules -type f -name "*.py" | sed 's#modules/##' | sed 's#/#.#g' | sed 's#.py##g')
-
-    for module in $PYTHON_MODULES; do
-        PYINSTALLER_CMD+=" --hidden-import=$module"
-    done
 fi
-
+PYINSTALLER_CMD+=" --hidden-import=jsom"
 # Always add the main.py to the pyinstaller command
 PYINSTALLER_CMD+=" main.py"
 
