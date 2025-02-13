@@ -5,7 +5,7 @@ FROM alpine:latest as build
 RUN apk add --no-cache tar python3 git py3-pip build-base \
     && git clone https://github.com/Coldhost/yolks \
     && cd yolks/shared/tools \
-    && pip install -r requirements.txt \
+    && pip install -r requirements.txt --break\
     && chmod +x build.sh \
     && ./build.sh \
     && VERSION=v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} \
