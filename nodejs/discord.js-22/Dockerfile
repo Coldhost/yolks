@@ -27,17 +27,27 @@ LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 LABEL       org.opencontainers.image.source="https://github.com/Coldhost/yolks"
 LABEL       org.opencontainers.image.licenses=MIT
 
-RUN			apk add --update --no-cache tar podman \
-			&& podman run --rm -v $(pwd):/mnt ghcr.io/coldhost/tools-cli:latest-full-release sh -c 'cp /ghcr_tools.tar.gz /mnt' \
-			&& apk del podman \
-			&& rm -rf ~/.local/share/containers ~/.config/containers \
-			&& tar -xvf ghcr_tools.tar.gz \
-			&& mv ghcr_tools/tools /bin/tools
-
-RUN         apk add --update --no-cache ca-certificates jq curl ffmpeg git openssl sqlite tar tzdata clamav clamav-daemon \
-	&& adduser -D -h /home/container container \
-	&& npm install -g npm
-
+RUN         apk add --update --no-cache ca-certificates jq curl ffmpeg git openssl sqlite umoci tar tzdata skopeo clamav clamav-daemon \
+			&& mkdir -p /mnt/unpacked_tools \
+			&& skopeo copy docker://ghcr.io/coldhost/tools-cli:latest-full-release oci:/mnt/extracted:latest-full-release \
+			&& umoci unpack --rootless --image /mnt/extracted:latest-full-release /mnt/unpacked \
+			&& ls /mnt/unpacked/rootfs/ \
+			&& echo ---- \
+			&& ls /mnt/unpacked \
+			&& echo ---- \
+			&& ls / \ 
+			&& echo ---- \
+			&& tar -xvf /mnt/unpacked/rootfs/ghcr_tools.tar.gz -C /mnt/unpacked_tools \
+			&& echo ---- \
+			&& ls /mnt/unpacked_tools \
+			&& echo ---- \
+			&& chmod +x /mnt/unpacked_tools/tools \
+			&& /mnt/unpacked_tools/tools version \
+			&& mv /mnt/unpacked_tools/tools /bin/tools \
+			&& rm -rf /mnt \
+			&& apk del skopeo umoci \
+			&& adduser -D -h /home/container container \
+			&& npm install -g npm
 USER        container
 ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
