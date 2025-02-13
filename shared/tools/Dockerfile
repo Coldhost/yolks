@@ -1,6 +1,16 @@
 # Stage 1: Build phase (with all dependencies)
 FROM alpine:latest as build
 
+# Define build arguments that can be passed during the build
+ARG RUN_NUMBER
+ARG MATRIX_VERSION
+ARG MATRIX_TYPE
+
+# Set environment variables inside the Docker image using the passed arguments
+ENV RUN_NUMBER=$RUN_NUMBER
+ENV MATRIX_VERSION=$MATRIX_VERSION
+ENV MATRIX_TYPE=$MATRIX_TYPE
+
 # Install dependencies needed for building the tool (e.g., tar, Python, etc.)
 RUN apk add --no-cache tar python3 bash git py3-pip build-base \
     && git clone https://github.com/Coldhost/yolks \

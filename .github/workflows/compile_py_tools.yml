@@ -28,9 +28,9 @@ jobs:
 
         - name: Set environment variables
           run: |
-            echo "RUN_NUMBER=${{ github.run_number }}" >> $GITHUB_ENV
-            echo "MATRIX_VERSION=${{ matrix.version }}" >> $GITHUB_ENV
-            echo "MATRIX_TYPE=${{ matrix.type }}" >> $GITHUB_ENV
+            export RUN_NUMBER=${{ github.run_number }}"
+            export MATRIX_VERSION=${{ matrix.version }}"
+            export MATRIX_TYPE=${{ matrix.type }}"
 
         - name: Login to GHCR
           run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
@@ -39,7 +39,11 @@ jobs:
           working-directory: shared/tools
           run: |
             # Build the Docker image
-            docker buildx build --platform linux/amd64,linux/arm64 -t ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} .
+            docker buildx build --platform linux/amd64,linux/arm64 \
+            --build-arg RUN_NUMBER=${{ github.run_number }} \
+            --build-arg MATRIX_VERSION=${{ matrix.version }} \
+            --build-arg MATRIX_TYPE=${{ matrix.type }} \
+            -t ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} .
 
         - name: Push to GHCR
           run: |
