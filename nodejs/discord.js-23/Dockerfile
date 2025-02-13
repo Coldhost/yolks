@@ -39,7 +39,7 @@ RUN         apk add --update --no-cache ca-certificates jq curl ffmpeg git opens
 			&& echo ---- \
 			&& tar -xvf /mnt/unpacked/rootfs/ghcr_tools.tar.gz -C /bin \
 			&& chmod +x /bin/tools \
-			&& /bin/tools version \
+			&& tools version \
 			&& rm -rf /mnt \
 			&& apk del skopeo umoci \
 			&& adduser -D -h /home/container container \
