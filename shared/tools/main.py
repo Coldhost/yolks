@@ -5,11 +5,29 @@ import logging
 import yaml # type: ignore
 import sys
 
+def resource_path(relative_path):
+    """ Get the resource path inside the bundled executable or from the source. """
+    try:
+        # PyInstaller stores resources in the _MEIPASS folder for bundled apps
+        base_path = sys._MEIPASS
+    except Exception:
+        # If running normally (outside of the bundle), use the current directory
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+config_path = resource_path("config.yaml")
+modules_dir = resource_path("modules")
+
 class CustomFormatter(logging.Formatter):
     def format(self, record):
         if record.levelno == logging.INFO:
             return record.getMessage()  # No prefix for INFO
         return f"[{record.levelname}] {record.getMessage()}"  # Prefix for others
+with open("config.yaml", "r") as f:
+    config = yaml.safe_load(f)
+    log_level = logging.DEBUG if "debug" in config.get("version", "").lower() else logging.INFO
+
 logging.basicConfig(level=logging.INFO)
 
 logger = logging.getLogger(__name__)
@@ -22,23 +40,6 @@ for handler in logger.handlers:
 def cli():
     """Main CLI entry point."""
     pass
-
-def resource_path(relative_path):
-    """ Get the resource path inside the bundled executable or from the source. """
-    try:
-        # PyInstaller stores resources in the _MEIPASS folder for bundled apps
-        base_path = sys._MEIPASS
-    except Exception:
-        # If running normally (outside of the bundle), use the current directory
-        base_path = os.path.abspath(".")
-
-    return os.path.join(base_path, relative_path)
-
-# Load the config.yaml file (read-only)
-config_path = resource_path("config.yaml")
-# Try to dynamically load all modules in the 'modules/' directory
-modules_dir = 'modules'
-modules_dir = resource_path("modules")
 
 if os.path.exists(modules_dir) and os.path.isdir(modules_dir):
     sys.path.insert(0, modules_dir)  # Add to sys.path so importlib can find modules
@@ -57,14 +58,10 @@ if os.path.exists(modules_dir) and os.path.isdir(modules_dir):
 @cli.command()
 def dumpconfig():
     """Start the main tool."""
-    with open(config_path) as f:
-        config = f.read()
     logger.info(config)
 
 @cli.command()
 def version():
-    with open(config_path) as f:
-        config = yaml.safe_load(f)
     logger.info(f"Running version: {config.get('version', 'Unknown version')}")
 
 if __name__ == "__main__":
