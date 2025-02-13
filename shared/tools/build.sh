@@ -1,5 +1,23 @@
 #!/bin/bash
 
+VERSION=v${RUN_NUMBER}-${MATRIX_VERSION}-${MATRIX_TYPE}
+MODULES=$(ls modules/ | grep -v '^\.' | tr '\n' ',' | sed 's/,$//')
+
+echo "version: \"$VERSION\"" > config.yaml
+echo "modules:" >> config.yaml
+
+if [ -n "$MODULES" ] && [ "${MATRIX_VERSION}" != "minimal" ]; then
+    IFS=',' read -ra MODULE_LIST <<< "$MODULES"
+    for MODULE in "${MODULE_LIST[@]}"; do
+    echo "  - $MODULE" >> config.yaml
+    done
+else
+    echo "  - No modules" >> config.yaml
+fi
+
+cat config.yaml
+
+
 # Read the config.yaml file
 CONFIG_FILE="config.yaml"
 

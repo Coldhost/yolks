@@ -21,33 +21,17 @@ jobs:
       steps:
         - name: Checkout code
           uses: actions/checkout@v2
-  
-        - name: Generate config.yaml for ${{ matrix.version }} ${{ matrix.type }}
-          working-directory: shared/tools
+        - uses: docker/setup-qemu-action@v2
+        - uses: docker/setup-buildx-action@v2
+          with:
+            buildkitd-flags: --debug
+
+        - name: Set environment variables
           run: |
-            VERSION=v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }}
-            MODULES=$(ls modules/ | grep -v '^\.' | tr '\n' ',' | sed 's/,$//')
-  
-            echo "version: \"$VERSION\"" > config.yaml
-            echo "modules:" >> config.yaml
-  
-            if [ -n "$MODULES" ] && [ "${{ matrix.version }}" != "minimal" ]; then
-              IFS=',' read -ra MODULE_LIST <<< "$MODULES"
-              for MODULE in "${MODULE_LIST[@]}"; do
-                echo "  - $MODULE" >> config.yaml
-              done
-            else
-              echo "  - No modules" >> config.yaml
-            fi
-  
-            cat config.yaml
-  
-        - name: Install dependencies
-          working-directory: shared/tools
-          run: |
-            sudo apt install python3
-            pip install -r requirements.txt
-  
+            echo "RUN_NUMBER=${{ github.run_number }}" >> $GITHUB_ENV
+            echo "MATRIX_VERSION=${{ matrix.version }}" >> $GITHUB_ENV
+            echo "MATRIX_TYPE=${{ matrix.type }}" >> $GITHUB_ENV
+
         - name: Build v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }}
           working-directory: shared/tools
           run: |
@@ -57,35 +41,17 @@ jobs:
         - name: Login to GHCR
           run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-        - name: Package and Push Binary to GHCR
-          working-directory: shared/tools
-          run: |
-            VERSION=v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }}
-            mkdir -p ghcr_tools
-            ls
-            mv dist/tools ghcr_tools/tools
-            chmod +x ghcr_tools/tools
-            tar -czf ghcr_tools.tar.gz -C ghcr_tools tools
-            # confirm tools is in the tar
-            echo ----
-            tar -tzf ghcr_tools.tar.gz
         - name: Dockerize the Tarball
           working-directory: shared/tools
           run: |
-            # Create a simple Dockerfile
-            echo "FROM alpine:latest" > Dockerfile
-            echo "COPY ghcr_tools.tar.gz /" >> Dockerfile
-            echo "ENTRYPOINT [\"/bin/sh\"]" >> Dockerfile
-            
             # Build the Docker image
-            docker build -t --platform linux/amd64,linux/arm64 ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} .
+            docker buildx build --platform linux/amd64,linux/arm64 -t ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} .
 
         - name: Push to GHCR
           run: |
             docker tag ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} ghcr.io/coldhost/tools-cli:latest-${{ matrix.version }}-${{ matrix.type }}
             docker tag ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }}
             docker tag ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} ghcr.io/coldhost/tools-cli:${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }}
-
 
             docker push ghcr.io/coldhost/tools-cli:latest-${{ matrix.version }}-${{ matrix.type }}
             docker push ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }}
