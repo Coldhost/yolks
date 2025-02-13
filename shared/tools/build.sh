@@ -31,9 +31,11 @@ if [[ "$VERSION" == *"minimal"* ]]; then
 else
     BUILD_MODE="full"
 fi
-
+if [[ "$VERSION" == *"debug"* ]]; then
+    PYINSTALLER_CMD+=" --log-level=DEBUG"
+fi
 # Start the base pyinstaller command
-PYINSTALLER_CMD="pyinstaller --log-level=DEBUG --add-data \"config.yaml:.\" --onefile --name tools"
+PYINSTALLER_CMD="pyinstaller --add-data \"config.yaml:.\" --onefile --name tools"
 
 # If it's a full build, add the entire modules/ directory
 if [[ "$BUILD_MODE" != "minimal" ]]; then
