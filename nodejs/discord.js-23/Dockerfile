@@ -29,11 +29,12 @@ LABEL       org.opencontainers.image.licenses=MIT
 
 
 RUN			apk add --update --no-cache tar podman \
-			&& podman --storage-opt overlay.mount_program=/usr/bin/fuse-overlayfs run --rm -v $(pwd):/mnt ghcr.io/coldhost/tools-cli:latest-full-release sh -c 'cp /ghcr_tools.tar.gz /mnt' \
+			&& sudo mkdir -p /mnt \
+			&& sudo podman --storage-opt overlay.mount_program=/usr/bin/fuse-overlayfs run --rm -v /mnt:/mnt ghcr.io/coldhost/tools-cli:latest-full-release sh -c 'cp /ghcr_tools.tar.gz /mnt' \
 			&& apk del podman \
 			&& rm -rf ~/.local/share/containers ~/.config/containers \
-			&& tar -xvf ghcr_tools.tar.gz \
-			&& mv ghcr_tools/tools /bin/tools \
+			&& tar -xvf /mnt/ghcr_tools.tar.gz \
+			&& mv /mnt/ghcr_tools/tools /bin/tools \
 			&& chmod +x /bin/tools \
 			&& /bin/tools version
 
