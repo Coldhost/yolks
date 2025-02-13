@@ -4,7 +4,7 @@ FROM alpine:latest as build
 # Install dependencies needed for building the tool (e.g., tar, Python, etc.)
 RUN apk add --no-cache tar python3 git py3-pip build-base \
     && git clone https://github.com/Coldhost/yolks \
-    && cd shared/tools \
+    && cd yolks/shared/tools \
     && pip install -r requirements.txt \
     && chmod +x build.sh \
     && ./build.sh \
