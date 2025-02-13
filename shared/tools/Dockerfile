@@ -1,5 +1,5 @@
 # Stage 1: Build phase (with all dependencies)
-FROM alpine:latest AS build
+FROM python:3.12-alpine AS build
 
 # Define build arguments that can be passed during the build
 ARG RUN_NUMBER
@@ -12,7 +12,7 @@ ENV MATRIX_VERSION=$MATRIX_VERSION
 ENV MATRIX_TYPE=$MATRIX_TYPE
 
 # Install dependencies needed for building the tool (e.g., tar, Python, etc.)
-RUN apk add --no-cache tar python3 bash git python3-dev py3-pip build-base \
+RUN apk add --no-cache tar bash git python3-dev py3-pip build-base \
     && git clone https://github.com/Coldhost/yolks \
     && cd yolks/shared/tools \
     && pip install -r requirements.txt --break\
