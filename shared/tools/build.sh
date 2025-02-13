@@ -9,7 +9,7 @@ echo "modules:" >> config.yaml
 if [ -n "$MODULES" ] && [ "${MATRIX_VERSION}" != "minimal" ]; then
     IFS=',' read -ra MODULE_LIST <<< "$MODULES"
     for MODULE in "${MODULE_LIST[@]}"; do
-        if [ $MODULE != "__init__.py" ]
+        if [ $MODULE != "__init__.py" ]; then
             echo "  - $MODULE" >> config.yaml
         fi
     done
