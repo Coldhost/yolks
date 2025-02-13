@@ -2,7 +2,7 @@ import os
 import importlib
 import click # type: ignore
 import logging
-import yaml
+import yaml # type: ignore
 
 logger = logging.Logger("main",logging.INFO)
 
