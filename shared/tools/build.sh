@@ -37,7 +37,7 @@ PYINSTALLER_CMD="pyinstaller --add-data \"config.yaml:.\" --onefile --name tools
 if [[ "$BUILD_MODE" != "minimal" ]]; then
     PYINSTALLER_CMD+=" --add-data \"modules:modules\""
 fi
-PYINSTALLER_CMD+=" --collect-submodules=modules"
+PYINSTALLER_CMD+=" --collect-submodules=modules --hidden-import=modules --recursive-copy-metadata=all"
 # Always add the main.py to the pyinstaller command
 PYINSTALLER_CMD+=" main.py"
 
