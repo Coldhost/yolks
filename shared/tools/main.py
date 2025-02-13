@@ -2,6 +2,8 @@ import os
 import importlib
 import click # type: ignore
 import logging
+import yaml
+
 logger = logging.Logger("main",logging.INFO)
 
 # Initialize the main CLI group
@@ -37,8 +39,8 @@ def dumpconfig():
 @cli.command()
 def version():
     with open("config.yaml") as f:
-        config = f.read()
-        
+        config = yaml.safe_load(f)
+        logger.info(f"Running version: {config.get('version', 'Unknown version')}")
 
 if __name__ == "__main__":
     cli()
