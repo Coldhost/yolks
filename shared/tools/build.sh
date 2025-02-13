@@ -9,14 +9,13 @@ echo "modules:" >> config.yaml
 if [ -n "$MODULES" ] && [ "${MATRIX_VERSION}" != "minimal" ]; then
     IFS=',' read -ra MODULE_LIST <<< "$MODULES"
     for MODULE in "${MODULE_LIST[@]}"; do
-    echo "  - $MODULE" >> config.yaml
+        echo "  - $MODULE" >> config.yaml
     done
 else
     echo "  - No modules" >> config.yaml
 fi
 
 cat config.yaml
-
 
 # Read the config.yaml file
 CONFIG_FILE="config.yaml"
@@ -32,11 +31,18 @@ else
 fi
 
 # Start the base pyinstaller command
-PYINSTALLER_CMD="pyinstaller --add-data "config.yaml:." --onefile --name tools"
+PYINSTALLER_CMD="pyinstaller --add-data \"config.yaml:.\" --onefile --name tools"
 
 # If it's a full build, add the entire modules/ directory
 if [[ "$BUILD_MODE" != "minimal" ]]; then
     PYINSTALLER_CMD+=" --add-data \"modules:modules\""
+
+    # Find all Python files in modules and convert to --hidden-import format
+    PYTHON_MODULES=$(find modules -type f -name "*.py" | sed 's#modules/##' | sed 's#/#.#g' | sed 's#.py##g')
+
+    for module in $PYTHON_MODULES; do
+        PYINSTALLER_CMD+=" --hidden-import=$module"
+    done
 fi
 
 # Always add the main.py to the pyinstaller command
