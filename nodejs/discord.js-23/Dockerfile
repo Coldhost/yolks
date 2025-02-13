@@ -28,7 +28,7 @@ LABEL       org.opencontainers.image.source="https://github.com/Coldhost/yolks"
 LABEL       org.opencontainers.image.licenses=MIT
 
 RUN         apk add --update --no-cache ca-certificates jq curl ffmpeg git openssl sqlite tar tzdata skopeo clamav clamav-daemon \
-			&& skopeo copy docker://ghcr.io/<owner>/<repository>/tools-cli:v<version> dir:/mnt \
+			&& skopeo copy docker://ghcr.io/coldhost/tools-cli:latest-full-release dir:/mnt \
 			&& apk del skopeo \
 			&& rm -rf ~/.local/share/containers ~/.config/containers \
 			&& tar -xvf /mnt/ghcr_tools.tar.gz \
