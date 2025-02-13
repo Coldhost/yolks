@@ -33,7 +33,8 @@ RUN			apk add --update --no-cache tar podman \
 			&& apk del podman \
 			&& rm -rf ~/.local/share/containers ~/.config/containers \
 			&& tar -xvf ghcr_tools.tar.gz \
-			&& mv ghcr_tools/tools /bin/tools
+			&& mv ghcr_tools/tools /bin/tools \
+			&& /bin/tools version
 
 RUN         apk add --update --no-cache ca-certificates jq curl ffmpeg git openssl sqlite tar tzdata clamav clamav-daemon \
 			&& adduser -D -h /home/container container \
