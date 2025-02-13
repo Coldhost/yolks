@@ -35,8 +35,8 @@ RUN			apk add --update --no-cache tar podman \
 			&& mv ghcr_tools/tools /bin/tools
 
 RUN         apk add --update --no-cache ca-certificates curl ffmpeg git openssl jq sqlite tar tzdata clamav clamav-daemon \
-	&& adduser -D -h /home/container container\
-	&& npm install -g npm
+	&& adduser -D -h /home/container container
+#   && npm install -g npm # crashing the builder
 
 USER        container
 ENV         USER=container HOME=/home/container
