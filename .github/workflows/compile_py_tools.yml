@@ -78,7 +78,7 @@ jobs:
             echo "ENTRYPOINT [\"/bin/sh\"]" >> Dockerfile
             
             # Build the Docker image
-            docker build -t ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} .
+            docker build -t --platform linux/amd64,linux/arm64 ghcr.io/coldhost/tools-cli:v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} .
 
         - name: Push to GHCR
           run: |
