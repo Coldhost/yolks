@@ -1,5 +1,5 @@
 # Stage 1: Build phase (with all dependencies)
-FROM alpine:latest as build
+FROM alpine:latest AS build
 
 # Define build arguments that can be passed during the build
 ARG RUN_NUMBER
