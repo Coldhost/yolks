@@ -18,7 +18,6 @@ RUN apk add --no-cache tar python3 bash git py3-pip build-base \
     && pip install -r requirements.txt --break\
     && chmod +x build.sh \
     && ./build.sh \
-    && VERSION=v${{ github.run_number }}-${{ matrix.version }}-${{ matrix.type }} \
     && mkdir -p ghcr_tools \
     && mv dist/tools ghcr_tools/tools \
     && chmod +x ghcr_tools/tools \
