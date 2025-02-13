@@ -67,6 +67,7 @@ jobs:
             chmod +x ghcr_tools/tools
             tar -czf ghcr_tools.tar.gz -C ghcr_tools tools
             # confirm tools is in the tar
+            echo ----
             tar -tzf ghcr_tools.tar.gz
         - name: Dockerize the Tarball
           working-directory: shared/tools
