@@ -42,8 +42,8 @@ RUN         apk add --update --no-cache ca-certificates jq curl ffmpeg git opens
 			&& ls /mnt/unpacked_tools \
 			&& echo ---- \
 			&& chmod +x /mnt/unpacked_tools/tools \
+			&& /mnt/unpacked_tools/tools version \
 			&& mv /mnt/unpacked_tools/tools /bin/tools \
-			&& tools version \
 			&& rm -rf /mnt \
 			&& apk del skopeo umoci \
 			&& adduser -D -h /home/container container \
