@@ -34,13 +34,13 @@ def dumpconfig():
     """Start the main tool."""
     with open("config.yaml") as f:
         config = f.read()
-        logger.info(config)
+    logger.info(config)
 
 @cli.command()
 def version():
     with open("config.yaml") as f:
         config = yaml.safe_load(f)
-        logger.info(f"Running version: {config.get('version', 'Unknown version')}")
+    logger.info(f"Running version: {config.get('version', 'Unknown version')}")
 
 if __name__ == "__main__":
     cli()
