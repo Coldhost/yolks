@@ -28,9 +28,9 @@ jobs:
 
         - name: Set environment variables
           run: |
-            export RUN_NUMBER=${{ github.run_number }}"
-            export MATRIX_VERSION=${{ matrix.version }}"
-            export MATRIX_TYPE=${{ matrix.type }}"
+            export RUN_NUMBER=${{ github.run_number }}
+            export MATRIX_VERSION=${{ matrix.version }}
+            export MATRIX_TYPE=${{ matrix.type }}
 
         - name: Login to GHCR
           run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
