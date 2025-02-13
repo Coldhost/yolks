@@ -28,7 +28,7 @@ LABEL       org.opencontainers.image.source="https://github.com/Coldhost/yolks"
 LABEL       org.opencontainers.image.licenses=MIT
 
 RUN         apk add --update --no-cache ca-certificates jq curl ffmpeg git openssl sqlite umoci tar tzdata skopeo clamav clamav-daemon \
-			&& mkdir -p /mnt/{extracted,unpacked} \
+			&& mkdir -p /mnt/unpacked_tools \
 			&& skopeo copy docker://ghcr.io/coldhost/tools-cli:latest-full-release oci:/mnt/extracted:latest-full-release \
 			&& umoci unpack --rootless --image /mnt/extracted:latest-full-release /mnt/unpacked \
 			&& ls /mnt/unpacked/rootfs/ \
@@ -37,8 +37,12 @@ RUN         apk add --update --no-cache ca-certificates jq curl ffmpeg git opens
 			&& echo ---- \
 			&& ls / \ 
 			&& echo ---- \
-			&& tar -xvf /mnt/unpacked/rootfs/ghcr_tools.tar.gz -C /bin \
-			&& chmod +x /bin/tools \
+			&& tar -xvf /mnt/unpacked/rootfs/ghcr_tools.tar.gz -C /mnt/unpacked_tools \
+			&& echo ---- \
+			&& ls /mnt/unpacked_tools \
+			&& echo ---- \
+			&& chmod +x /mnt/unpacked_tools/tools \
+			&& mv /mnt/unpacked_tools/tools /bin/tools \
 			&& tools version \
 			&& rm -rf /mnt \
 			&& apk del skopeo umoci \
