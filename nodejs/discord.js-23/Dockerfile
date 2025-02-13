@@ -27,16 +27,17 @@ LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 LABEL       org.opencontainers.image.source="https://github.com/Coldhost/yolks"
 LABEL       org.opencontainers.image.licenses=MIT
 
-RUN         apk add --update --no-cache ca-certificates jq curl ffmpeg git openssl sqlite tar tzdata skopeo clamav clamav-daemon \
-			&& skopeo copy docker://ghcr.io/coldhost/tools-cli:latest-full-release dir:/mnt \
-			&& apk del skopeo \
-			&& rm -rf ~/.local/share/containers ~/.config/containers \
-			&& ls /mnt \
-			&& tar -xvf /mnt/ghcr_tools.tar.gz \
-			&& mv /mnt/ghcr_tools/tools /bin/tools \
+RUN         apk add --update --no-cache ca-certificates jq curl ffmpeg git openssl sqlite umoci tar tzdata skopeo clamav clamav-daemon \
+			&& mkdir -p /mnt/{extracted,unpacked} \
+			&& skopeo copy docker://ghcr.io/coldhost/tools-cli:latest-full-release dir:/mnt/extracted \
+			&& umoci unpack --rootless --image /mnt/extracted /mnt/unpacked \
+			&& ls /mnt/unpacked/rootfs \
+			&& tar -xvf /mnt/unpacked/rootfs/ghcr_tools.tar.gz \
+			&& mv /mnt/unpacked/rootfs/ghcr_tools/tools /bin/tools \
 			&& chmod +x /bin/tools \
 			&& /bin/tools version \
 			&& rm -rf /mnt \
+			&& apk del skopeo umoci \
 			&& adduser -D -h /home/container container \
 			&& npm install -g npm
 
