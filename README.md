@@ -35,6 +35,7 @@ is tagged correctly.
 [![Java](https://github.com/Coldhost/yolks/actions/workflows/java.yml/badge.svg)](https://github.com/Coldhost/yolks/actions/workflows/java.yml)
 [![NodeJS](https://github.com/Coldhost/yolks/actions/workflows/nodejs.yml/badge.svg)](https://github.com/Coldhost/yolks/actions/workflows/nodejs.yml)
 [![Python](https://github.com/Coldhost/yolks/actions/workflows/python.yml/badge.svg)](https://github.com/Coldhost/yolks/actions/workflows/python.yml)
+[![Tools-CLI](https://github.com/Coldhost/yolks/actions/workflows/compile_py_tools.yml/badge.svg)](https://github.com/Coldhost/yolks/actions/workflows/compile_py_tools.yml)
 
 * [`base oses`](https://github.com/Coldhost/yolks/tree/master/oses)
   * [`alpine`](https://github.com/Coldhost/yolks/tree/master/oses/alpine)
