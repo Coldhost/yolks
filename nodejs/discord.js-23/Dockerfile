@@ -31,6 +31,7 @@ RUN         apk add --update --no-cache ca-certificates jq curl ffmpeg git opens
 			&& skopeo copy docker://ghcr.io/coldhost/tools-cli:latest-full-release dir:/mnt \
 			&& apk del skopeo \
 			&& rm -rf ~/.local/share/containers ~/.config/containers \
+			&& ls /mnt \
 			&& tar -xvf /mnt/ghcr_tools.tar.gz \
 			&& mv /mnt/ghcr_tools/tools /bin/tools \
 			&& chmod +x /bin/tools \
