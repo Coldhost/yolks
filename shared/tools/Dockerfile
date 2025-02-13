@@ -12,7 +12,7 @@ ENV MATRIX_VERSION=$MATRIX_VERSION
 ENV MATRIX_TYPE=$MATRIX_TYPE
 
 # Install dependencies needed for building the tool (e.g., tar, Python, etc.)
-RUN apk add --no-cache tar python3 bash git py3-pip build-base \
+RUN apk add --no-cache tar python3 bash git py3-json py3-pip build-base \
     && git clone https://github.com/Coldhost/yolks \
     && cd yolks/shared/tools \
     && pip install -r requirements.txt --break\
