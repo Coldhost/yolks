@@ -48,9 +48,10 @@ echo "Running command: $PYINSTALLER_CMD"
 eval "$PYINSTALLER_CMD"
 
 # Check if pyinstaller ran successfully
+
 if [ $? -eq 0 ]; then
-    echo "Build completed successfully!"
+    echo "✅ Build completed successfully!"
 else
-    echo "Error during build!"
+    echo "❌ Error during build!"
     exit 1
 fi
