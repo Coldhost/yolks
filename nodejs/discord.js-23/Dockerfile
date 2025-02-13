@@ -33,7 +33,7 @@ RUN         apk add --update --no-cache ca-certificates jq curl ffmpeg git opens
 			&& umoci unpack --rootless --image /mnt/extracted:latest-full-release /mnt/unpacked \
 			&& tree /mnt/ \
 			&& tar -xvf /mnt/unpacked/rootfs/ghcr_tools.tar.gz \
-			&& mv /mnt/unpacked/rootfs/ghcr_tools/tools /bin/tools \
+			&& mv /mnt/unpacked/rootfs/tools /bin/tools \
 			&& chmod +x /bin/tools \
 			&& /bin/tools version \
 			&& rm -rf /mnt \
