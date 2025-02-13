@@ -19,6 +19,7 @@ RUN apk add --no-cache tar python3 bash git py3-pip build-base \
     && chmod +x build.sh \
     && ./build.sh \
     && mkdir -p ghcr_tools \
+    && ls dist/tools \
     && mv dist/tools ghcr_tools/tools \
     && chmod +x ghcr_tools/tools \
     && ./ghcr_tools/tools version \
