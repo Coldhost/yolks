@@ -21,8 +21,8 @@ RUN apk add --no-cache tar python3 bash git py3-pip build-base \
     && mkdir -p ghcr_tools \
     && mv dist/tools ghcr_tools/tools \
     && chmod +x ghcr_tools/tools \
-    && tar -czf ghcr_tools.tar.gz -C ghcr_tools tools
-
+    && tar -czf ghcr_tools.tar.gz -C ghcr_tools tools \
+    && mv ghcr_tools.tar.gz /
 # Stage 2: Final runtime phase (minimal image)
 FROM busybox:1.35-uclibc
 
