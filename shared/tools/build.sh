@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 VERSION=v${RUN_NUMBER}-${MATRIX_VERSION}-${MATRIX_TYPE}
 MODULES=$(ls modules/ | grep -v '^\.' | tr '\n' ',' | sed 's/,$//')
