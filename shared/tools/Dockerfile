@@ -27,8 +27,8 @@ RUN apk add --no-cache tar musl-dev bash git python3-dev py3-pip build-base \
     && mv ghcr_tools.tar.gz /
 
 
-# Stage 1: Build phase (with all dependencies)
-FROM python:3.12-alpine3.9 AS build-legacy
+# Stage 2: Build phase (with all dependencies)
+FROM python:3.7-alpine3.9 AS build-legacy
 
 # Define build arguments that can be passed during the build
 ARG RUN_NUMBER
@@ -55,7 +55,7 @@ RUN apk add --no-cache tar musl-dev bash git python3-dev py3-pip build-base \
     && tar -czf ghcr_tools_legacy.tar.gz -C ghcr_tools tools \
     && mv ghcr_tools_legacy.tar.gz /
 
-# Stage 2: Final runtime phase (minimal image)
+# Stage 3: Final runtime phase (minimal image)
 FROM busybox:1.35-uclibc
 
 # Only copy the tarball from the build stage (no dependencies, no source code)
