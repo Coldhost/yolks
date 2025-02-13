@@ -24,7 +24,8 @@ class CustomFormatter(logging.Formatter):
         if record.levelno == logging.INFO:
             return record.getMessage()  # No prefix for INFO
         return f"[{record.levelname}] {record.getMessage()}"  # Prefix for others
-with open("config.yaml", "r") as f:
+
+with open(config_path, "r") as f:
     config = yaml.safe_load(f)
     log_level = logging.DEBUG if "debug" in config.get("version", "").lower() else logging.INFO
 
