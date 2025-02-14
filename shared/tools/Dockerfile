@@ -44,6 +44,7 @@ ENV MATRIX_TYPE=$MATRIX_TYPE
 RUN apk add --no-cache tar musl-dev bash git python3-dev py3-pip build-base \
     && git clone https://github.com/Coldhost/yolks \
     && cd yolks/shared/tools \
+    && pip install --upgrade pip setuptools wheel \
     && pip install -r requirements.txt \
     && chmod +x build.sh \
     && ./build.sh \
