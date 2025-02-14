@@ -46,12 +46,16 @@ if os.path.exists(modules_dir) and os.path.isdir(modules_dir):
     sys.path.insert(0, modules_dir)  # Add to sys.path so importlib can find modules
     
     for module_name in os.listdir(modules_dir):
-        # Check if it's a Python file (module)
         if module_name.endswith('.py') and module_name != '__init__.py':
             module_name_without_extension = module_name[:-3]  # Remove '.py' extension
             try:
-                importlib.import_module(module_name_without_extension)
+                # Dynamically import the module
+                module = importlib.import_module(module_name_without_extension)
                 logger.debug(f"Loaded module: {module_name_without_extension}")
+                
+                # Register the CLI group (if it exists) from the module to the parent `cli`
+                if hasattr(module, 'cli'):
+                    cli.add_command(module.cli)
             except Exception as e:
                 logger.warning(f"Failed to load module {module_name_without_extension}: {e}")
 
