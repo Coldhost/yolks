@@ -28,7 +28,7 @@
 #
 # @see https://github.com/McModLauncher/modlauncher/issues/91
 
-FROM        --platform=$TARGETOS/$TARGETARCH eclipse-temurin:8u312-b07-jdk-focal
+FROM        --platform=$TARGETOS/$TARGETARCH eclipse-temurin:8u312-b07-jdk-alpine
 
 LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
@@ -38,9 +38,9 @@ LABEL       org.opencontainers.image.licenses=MIT
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PS1="container@coldhost.eu~ "
 
-RUN 		apt-get update -y \
-			&& apt-get install --no-install-recommends -y lsof curl libcap2-bin ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 clamav clamav-daemon \
-			&& useradd -d /home/container -m container
+RUN apk add --no-cache \
+    lsof curl libcap ca-certificates openssl git tar sqlite fontconfig freetype tzdata iproute2 libstdc++ clamav clamav-daemon \
+    && adduser -D -h /home/container container
 
 RUN chown -R container:container /usr/bin/freshclam /var/lib/clamav
 
