@@ -32,7 +32,7 @@ ENV PS1="container@coldhost.eu~ "
 
 RUN apt-get update \
 	&& apt-get install -y lsof curl libcap2-bin ca-certificates \
-	&& "echo 1 done" \
+	&& echo "1 done" \
 	&& apt-get install -y openssl git tar sqlite3 fontconfig \
 	&& echo "2 done" \
 	&& apt-get install -y libfreetype6 tzdata iproute2 libstdc++6 clamav clamav-daemon \
