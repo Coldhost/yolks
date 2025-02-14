@@ -37,7 +37,7 @@ ARG MATRIX_TYPE
 
 # Set environment variables inside the Docker image using the passed arguments
 ENV RUN_NUMBER=$RUN_NUMBER
-ENV MATRIX_VERSION=$MATRIX_VERSION
+ENV MATRIX_VERSION=${MATRIX_VERSION}-legacy
 ENV MATRIX_TYPE=$MATRIX_TYPE
 
 # Install dependencies needed for building the tool (e.g., tar, Python, etc.)
