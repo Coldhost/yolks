@@ -30,11 +30,11 @@ LABEL       org.opencontainers.image.licenses=MIT
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PS1="container@coldhost.eu~ "
 
-RUN fallocate -l 2G /swapfile && \
-	chmod 644 /tmp/swapfile \
-	mkswap /tmp/swapfile \
-	swapon /tmp/swapfile \
-	apt-get update \
+RUN fallocate -l 2G /tmp/swapfile \
+	&& chmod 644 /tmp/swapfile \
+	&& mkswap /tmp/swapfile \
+	&& swapon /tmp/swapfile \
+	&& apt-get update \
 	&& apt-get install -y lsof curl libcap2-bin ca-certificates openssl git tar sqlite3 fontconfig \
 	&& apt-get install -y libfreetype6 tzdata iproute2 libstdc++6 clamav clamav-daemon \
 	&& useradd -d /home/container -m container
