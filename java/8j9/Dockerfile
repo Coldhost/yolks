@@ -30,10 +30,14 @@ LABEL       org.opencontainers.image.licenses=MIT
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PS1="container@coldhost.eu~ "
 
-RUN 		apt-get update \
-			&& apt-get install -y lsof curl libcap2-bin ca-certificates openssl git tar sqlite3 fontconfig \
-			&& apt-get install -y libfreetype6 tzdata iproute2 libstdc++6 clamav clamav-daemon \
-			&& useradd -d /home/container -m container
+RUN fallocate -l 2G /swapfile && \
+	chmod 600 /swapfile && \
+	mkswap /swapfile && \
+	swapon /swapfile && \
+	apt-get update \
+	&& apt-get install -y lsof curl libcap2-bin ca-certificates openssl git tar sqlite3 fontconfig \
+	&& apt-get install -y libfreetype6 tzdata iproute2 libstdc++6 clamav clamav-daemon \
+	&& useradd -d /home/container -m container
 
 RUN chown -R container:container /usr/bin/freshclam /var/lib/clamav
 
