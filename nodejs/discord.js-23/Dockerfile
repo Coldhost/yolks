@@ -27,20 +27,11 @@ LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 LABEL       org.opencontainers.image.source="https://github.com/Coldhost/yolks"
 LABEL       org.opencontainers.image.licenses=MIT
 
-RUN         apk add --update --no-cache ca-certificates jq curl ffmpeg git openssl sqlite umoci tar tzdata skopeo clamav clamav-daemon \
+RUN         apk add --update --no-cache ca-certificates curl ffmpeg git openssl sqlite umoci tar tzdata skopeo clamav clamav-daemon \
 			&& mkdir -p /mnt/unpacked_tools \
 			&& skopeo copy docker://ghcr.io/coldhost/tools-cli:latest-full-release oci:/mnt/extracted:latest-full-release \
 			&& umoci unpack --rootless --image /mnt/extracted:latest-full-release /mnt/unpacked \
-			&& ls /mnt/unpacked/rootfs/ \
-			&& echo ---- \
-			&& ls /mnt/unpacked \
-			&& echo ---- \
-			&& ls / \ 
-			&& echo ---- \
 			&& tar -xvf /mnt/unpacked/rootfs/ghcr_tools.tar.gz -C /mnt/unpacked_tools \
-			&& echo ---- \
-			&& ls /mnt/unpacked_tools \
-			&& echo ---- \
 			&& chmod +x /mnt/unpacked_tools/tools \
 			&& /mnt/unpacked_tools/tools version \
 			&& mv /mnt/unpacked_tools/tools /bin/tools \

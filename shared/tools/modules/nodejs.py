@@ -11,7 +11,7 @@ def nodejs():
 
 @nodejs.command()
 @click.argument("file", type=click.Path(exists=True, dir_okay=False), default="package.json")
-def check_npm_startup_script(file):
+def check_npm_startup(file):
     """Ensure package.json has a 'main' entry and a 'start' script."""
     
     # Load package.json

@@ -51,7 +51,7 @@ echo -e               "########################################################"
 COMMIT_NUMBER=$(cat /commit_count.txt)
 COMMIT_MESSAGE=$(cat /commit_message.txt)
 echo -e " "
-echo -e "Server is starting... "
+echo -e "Bot is starting... "
 echo -e " "
 echo -e "Runner version: v$COMMIT_NUMBER"
 #echo -e "Developer message: $COMMIT_MESSAGE"
@@ -148,18 +148,7 @@ if [ ! -s "package.json" ]; then
     exit 1
 fi
 
-MAIN_FILE=$(jq -r 'if has("main") then .main else "index.js" end' package.json)
-
-# If "main" is missing, add it
-jq --arg main "$MAIN_FILE" 'if has("main") | not then . + {main: $main} else . end' package.json > tmp.json && mv tmp.json package.json
-
-# Ensure "scripts" exists
-jq 'if has("scripts") | not then . + {scripts: {}} else . end' package.json > tmp.json && mv tmp.json package.json
-
-# Ensure "start" script exists in "scripts"
-jq --arg main "$MAIN_FILE" 'if .scripts | has("start") | not then .scripts += {"start": "node \($main)"} else . end' package.json > tmp.json && mv tmp.json package.json
-
-echo "To edit start options please edit the package.json"
+tools nodejs check_npm_startup package.json
 
 # Print Node.js version
 printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[0mnode -v\n"
