@@ -31,7 +31,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV PS1="container@coldhost.eu~ "
 
 RUN 		apt-get update -y \
-			&& cat /proc/sys/fs/binfmt_misc/qemu-aarch64 \
 			&& apt-get install -y lsof curl libcap2-bin ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 clamav clamav-daemon \
 			&& useradd -d /home/container -m container
 
