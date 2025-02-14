@@ -59,6 +59,11 @@ if os.path.exists(modules_dir) and os.path.isdir(modules_dir):
             except Exception as e:
                 logger.warning(f"Failed to load module {module_name_without_extension}: {e}")
 
+@cli.command()
+def commands():
+    """Log all registered commands."""
+    logger.info(f"Registered commands: {', '.join([command.name for command in cli.commands.values()])}")
+
 # Add a basic command as a placeholder if needed
 @cli.command()
 def dumpconfig():
