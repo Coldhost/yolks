@@ -28,7 +28,7 @@ RUN apk add --no-cache tar musl-dev bash git python3-dev py3-pip build-base \
 
 
 # Stage 2: Build phase (with all dependencies)
-FROM python:3.7-alpine3.9 AS build-legacy
+FROM python:3.8-alpine3.10 AS build-legacy
 
 # Define build arguments that can be passed during the build
 ARG RUN_NUMBER
