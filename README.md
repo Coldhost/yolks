@@ -23,6 +23,7 @@ these images on an arm64 system, no modification to them or the tag is needed, t
 
 Tools is set of scripts that helps with functions that arent really easy with bash and more packages
 They are compiled and put onto the docker image, so we dont need to install python on every docker
+They contain 2 tarballs, normal and legacy. Legacy is used for images using older libc (musl based, may be working with glibc)
 
 ## Contributing
 
