@@ -14,7 +14,7 @@ def gen_data(type):
     # aswell as info about the docker itself, like ram size, cpu cores, etc..
     # Also collect uptime, latest logs (if possible/needed) and if possible
     # check if any warnings/errors on entrypoint
-
+    # Would love toml format if possible, or json
     pass
 
 @telemetry.command()
