@@ -31,16 +31,7 @@ RUN         apk add --update --no-cache ca-certificates musl-dev curl ffmpeg git
 			&& mkdir -p /mnt/unpacked_tools \
 			&& skopeo copy docker://ghcr.io/coldhost/tools-cli:latest-full-release oci:/mnt/extracted:latest-full-release \
 			&& umoci unpack --rootless --image /mnt/extracted:latest-full-release /mnt/unpacked \
-			&& ls /mnt/unpacked/rootfs/ \
-			&& echo ---- \
-			&& ls /mnt/unpacked \
-			&& echo ---- \
-			&& ls / \ 
-			&& echo ---- \
-			&& tar -xvf /mnt/unpacked/rootfs/ghcr_tools.tar.gz -C /mnt/unpacked_tools \
-			&& echo ---- \
-			&& ls /mnt/unpacked_tools \
-			&& echo ---- \
+			&& tar -xvf /mnt/unpacked/rootfs/ghcr_tools_legacy.tar.gz -C /mnt/unpacked_tools \
 			&& chmod +x /mnt/unpacked_tools/tools \
 			&& /mnt/unpacked_tools/tools version \
 			&& mv /mnt/unpacked_tools/tools /bin/tools \
