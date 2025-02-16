@@ -44,7 +44,6 @@ def gen_data(type):
     # Also collect uptime, latest logs (if possible/needed) and if possible
     # check if any warnings/errors on entrypoint
     # Would love toml format if possible, or json
-    pass
 
 @telemetry.command()
 def gen_crash_report():
