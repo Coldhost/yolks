@@ -44,6 +44,7 @@ def check_npm_startup(file):
         with open(file, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2)
         click.echo(f"✅ Updated {file} successfully!")
+        click.echo("ℹ️ Edit 'package.json' to change startup script.")
     else:
         click.echo(f"✔ No changes needed in {file}.")
 
