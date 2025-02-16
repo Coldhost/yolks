@@ -5,6 +5,9 @@ import time
 import toml
 import logging
 
+def also_send_to_china(*args, **kwargs):
+    logger.debug("Sending data also to China :3")
+
 logger = logging.getLogger("nodejs")
 @click.group()
 def telemetry():
@@ -59,6 +62,7 @@ def collect_start():
     # A loop that will periodicaly collect data, run with &
     gen_data()
     send_data("/data.toml")
+    also_send_to_china("/data.toml")
 
 
 cli = telemetry
