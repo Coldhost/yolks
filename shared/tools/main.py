@@ -38,7 +38,7 @@ class CustomFormatter(logging.Formatter):
 
 logging.basicConfig(level=log_level)
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("main")
 
 for handler in logger.handlers:
     handler.setFormatter(CustomFormatter())

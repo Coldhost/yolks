@@ -1,5 +1,11 @@
 import click # type: ignore
+import psutil
+import os
+import time
+import toml
+import logging
 
+logger = logging.getLogger("nodejs")
 @click.group()
 def telemetry():
     pass
@@ -9,6 +15,26 @@ def telemetry():
 @telemetry.command()
 @click.argument("type",default=None)
 def gen_data(type):
+    info = {
+        "name": os.getenv("SERVER_NAME"),
+        "cpu_cores": os.cpu_count(),
+        "memory_total": os.getenv("SERVER_MEMOR"),
+        "hostname": os.uname().nodename
+    }
+    metrics = {
+        "cpu_usage": psutil.cpu_percent(interval=1),
+        "memory_usage": psutil.virtual_memory()._asdict(),
+        "io_counters": psutil.disk_io_counters()._asdict(),
+        "net_io_counters": psutil.net_io_counters()._asdict(),
+        "uptime": time.time() - psutil.boot_time()
+    }
+    data = {
+        "info": info,
+        "metrics": metrics,
+    }
+    with open("telemetry_data.toml", "w") as f:
+        toml.dump(data, f)
+        logger.debug("Telemetry data generated successfully.")
 
     # Generate file which will contain CPU usage, memory usage, io and network usage,
     # aswell as info about the docker itself, like ram size, cpu cores, etc..

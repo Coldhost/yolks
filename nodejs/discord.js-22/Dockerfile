@@ -36,7 +36,6 @@ RUN         apk add --update --no-cache ca-certificates curl ffmpeg git openssl 
 			&& /mnt/unpacked_tools/tools version \
 			&& mv /mnt/unpacked_tools/tools /bin/tools \
 			&& rm -rf /mnt \
-			&& apk del skopeo umoci \
 			&& adduser -D -h /home/container container \
 			&& npm install -g npm
 
