@@ -148,7 +148,7 @@ if [ ! -s "package.json" ]; then
     exit 1
 fi
 
-tools nodejs check_npm_startup package.json
+tools nodejs check-npm-startup package.json
 
 # Print Node.js version
 printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[0mnode -v\n"

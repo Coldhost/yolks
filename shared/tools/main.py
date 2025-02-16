@@ -18,6 +18,17 @@ def resource_path(relative_path):
 
 config_path = resource_path("config.yaml")
 modules_dir = resource_path("modules")
+log_level = logging.INFO
+# Initialize the main CLI group
+@click.group()
+@click.option('--config', 'config_path', default=resource_path("config.yaml"), type=click.Path(exists=True, dir_okay=False), help="Path to the configuration file.")
+def cli(config_path):
+    """Main CLI entry point."""
+    global config
+    global log_level
+    with open(config_path, "r") as f:
+        config = yaml.safe_load(f)
+        log_level = logging.DEBUG if "debug" in config.get("version", "").lower() else logging.INFO
 
 class CustomFormatter(logging.Formatter):
     def format(self, record):
@@ -25,22 +36,12 @@ class CustomFormatter(logging.Formatter):
             return record.getMessage()  # No prefix for INFO
         return f"[{record.levelname}] {record.getMessage()}"  # Prefix for others
 
-with open(config_path, "r") as f:
-    config = yaml.safe_load(f)
-    log_level = logging.DEBUG if "debug" in config.get("version", "").lower() else logging.INFO
-
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=log_level)
 
 logger = logging.getLogger(__name__)
 
 for handler in logger.handlers:
     handler.setFormatter(CustomFormatter())
-
-# Initialize the main CLI group
-@click.group()
-def cli():
-    """Main CLI entry point."""
-    pass
 
 if os.path.exists(modules_dir) and os.path.isdir(modules_dir):
     sys.path.insert(0, modules_dir)  # Add to sys.path so importlib can find modules
