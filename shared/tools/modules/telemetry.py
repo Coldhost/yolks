@@ -16,9 +16,9 @@ def telemetry():
 @click.argument("type",default=None)
 def gen_data(type):
     info = {
-        "name": os.getenv("SERVER_NAME"),
+        "name": os.getenv("P_SERVER_UUID"),
         "cpu_cores": os.cpu_count(),
-        "memory_total": os.getenv("SERVER_MEMOR"),
+        "memory_total": os.getenv("SERVER_MEMORY"),
         "hostname": os.uname().nodename
     }
     metrics = {
@@ -32,7 +32,7 @@ def gen_data(type):
         "info": info,
         "metrics": metrics,
     }
-    with open("telemetry_data.toml", "w") as f:
+    with open("/data.toml", "w") as f:
         toml.dump(data, f)
         logger.debug("Telemetry data generated successfully.")
 
@@ -50,12 +50,15 @@ def gen_crash_report():
 
 @telemetry.command()
 def send_data():
+    # Send data to the telemetry server of discord bot
     pass
+
 
 @telemetry.command()
 def collect_start():
     # A loop that will periodicaly collect data, run with &
-    pass
+    gen_data()
+    send_data("/data.toml")
 
 
 cli = telemetry
