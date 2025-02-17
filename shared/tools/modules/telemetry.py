@@ -16,8 +16,8 @@ def telemetry():
 # basic things i wanna have here so i can also add it to the scripts
 
 @telemetry.command()
-@click.argument("type",default=None)
-def gen_data(type):
+@click.argument("place",default="/data.toml")
+def gen_data(place):
     info = {
         "name": os.getenv("P_SERVER_UUID"),
         "cpu_cores": os.cpu_count(),
@@ -35,7 +35,7 @@ def gen_data(type):
         "info": info,
         "metrics": metrics,
     }
-    with open("/data.toml", "w") as f:
+    with open(place, "w") as f:
         toml.dump(data, f)
         logger.debug("Telemetry data generated successfully.")
 
