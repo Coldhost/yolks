@@ -73,7 +73,7 @@ def dumpconfig():
 
 @cli.command()
 def version():
-    logger.info(f"Running version: {config.get('version', 'Unknown version')}")
+    logger.info(f"Running tools version: {config.get('version', 'Unknown version')}")
 
 if __name__ == "__main__":
     cli()
