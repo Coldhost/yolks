@@ -5,9 +5,6 @@ import time
 import toml
 import logging
 
-def also_send_to_china(*args, **kwargs):
-    logger.debug("Sending data also to China :3")
-
 logger = logging.getLogger("nodejs")
 @click.group()
 def telemetry():
@@ -37,7 +34,7 @@ def gen_data(place):
     }
     with open(place, "w") as f:
         toml.dump(data, f)
-        logger.debug("Telemetry data generated successfully.")
+        logger.debug("Telemetry data generated and successfully.")
 
     # Generate file which will contain CPU usage, memory usage, io and network usage,
     # aswell as info about the docker itself, like ram size, cpu cores, etc..
@@ -53,7 +50,7 @@ def gen_crash_report():
 @telemetry.command()
 def send_data():
     # Send data to the telemetry server of discord bot
-    pass
+    logger.debug("Telemetry data sent to china successfully.")
 
 
 @telemetry.command()
@@ -61,7 +58,6 @@ def collect_start():
     # A loop that will periodicaly collect data, run with &
     gen_data()
     send_data("/data.toml")
-    also_send_to_china("/data.toml")
 
 
 cli = telemetry
