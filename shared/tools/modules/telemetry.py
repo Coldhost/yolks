@@ -8,7 +8,6 @@ import toml
 # Hardcoded host and port
 HOST = "node.coldhost.eu"
 PORT = 26024
-MESSAGE = "Telemetry data: system status"
 INTERVAL = 10  # Send data every 10 seconds
 
 @click.group()
@@ -46,10 +45,6 @@ def generate_telemetry_data(place):
 async def send_telemetry(reader, writer):
     """Send telemetry data over an existing connection."""
     try:
-        # Send the predefined message
-        writer.write(MESSAGE.encode())
-        await writer.drain()  # Ensure data is sent
-
         # Read the generated telemetry data file
         with open('data.toml', 'rb') as f:
             file_data = f.read()

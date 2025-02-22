@@ -1,0 +1,43 @@
+[info]
+name = "unknown"
+cpu_cores = 12
+memory_total = "unknown"
+hostname = "HackerBookV2"
+
+[metrics]
+cpu_usage = 0.0
+uptime = 28577.73435139656
+
+[metrics.memory_usage]
+total = 8140275712
+available = 7475122176
+percent = 8.2
+used = 426975232
+free = 7511732224
+active = 44732416
+inactive = 257605632
+buffers = 6045696
+cached = 195522560
+shared = 6275072
+slab = 80011264
+
+[metrics.io_counters]
+read_count = 8183
+write_count = 585
+read_bytes = 402794496
+write_bytes = 6123520
+read_time = 5177
+write_time = 1577
+read_merged_count = 8317
+write_merged_count = 871
+busy_time = 7170
+
+[metrics.net_io_counters]
+bytes_sent = 35918
+bytes_recv = 12241798
+packets_sent = 264
+packets_recv = 61440
+errin = 0
+errout = 0
+dropin = 0
+dropout = 0
