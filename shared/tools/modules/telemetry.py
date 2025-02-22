@@ -6,8 +6,8 @@ import time
 import toml
 
 # Hardcoded host and port
-HOST = "telemetry.coldhost.eu"
-PORT = 80
+HOST = "node.coldhost.eu"
+PORT = 26024
 MESSAGE = "Telemetry data: system status"
 INTERVAL = 10  # Send data every 10 seconds
 
