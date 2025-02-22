@@ -1,26 +1,30 @@
-import click # type: ignore
+import asyncio
+import click  # type: ignore
 import psutil
 import os
 import time
 import toml
-import logging
 
-logger = logging.getLogger("nodejs")
+# Hardcoded host and port
+HOST = "telemetry.coldhost.eu"
+PORT = 80
+MESSAGE = "Telemetry data: system status"
+INTERVAL = 10  # Send data every 10 seconds
+
 @click.group()
 def telemetry():
+    """Send system telemetry data to a server."""
     pass
 
-# basic things i wanna have here so i can also add it to the scripts
-
-@telemetry.command()
-@click.argument("place",default="/data.toml")
-def gen_data(place):
+def generate_telemetry_data(place):
+    """Generate system telemetry data and save it as a TOML file."""
     info = {
-        "name": os.getenv("P_SERVER_UUID"),
+        "name": os.getenv("P_SERVER_UUID", "unknown"),
         "cpu_cores": os.cpu_count(),
-        "memory_total": os.getenv("SERVER_MEMORY"),
+        "memory_total": os.getenv("SERVER_MEMORY", "unknown"),
         "hostname": os.uname().nodename
     }
+
     metrics = {
         "cpu_usage": psutil.cpu_percent(interval=1),
         "memory_usage": psutil.virtual_memory()._asdict(),
@@ -28,36 +32,64 @@ def gen_data(place):
         "net_io_counters": psutil.net_io_counters()._asdict(),
         "uptime": time.time() - psutil.boot_time()
     }
+
     data = {
         "info": info,
         "metrics": metrics,
     }
-    with open(place, "w") as f:
-        toml.dump(data, f)
-        logger.debug("Telemetry data generated and successfully.")
 
-    # Generate file which will contain CPU usage, memory usage, io and network usage,
-    # aswell as info about the docker itself, like ram size, cpu cores, etc..
-    # Also collect uptime, latest logs (if possible/needed) and if possible
-    # check if any warnings/errors on entrypoint
-    # Would love toml format if possible, or json
+    # Save the collected data to a TOML file
+    toml_data = toml.dumps(data).encode('utf-8')
+    with open(place, 'wb') as f:
+        f.write(toml_data)
+
+async def send_telemetry(reader, writer):
+    """Send telemetry data over an existing connection."""
+    try:
+        # Send the predefined message
+        writer.write(MESSAGE.encode())
+        await writer.drain()  # Ensure data is sent
+
+        # Read the generated telemetry data file
+        with open('data.toml', 'rb') as f:
+            file_data = f.read()
+        
+        # Send the file data
+        writer.write(file_data)
+        await writer.drain()
+
+        print('Sent telemetry data from data.toml')
+
+    except Exception as e:
+        print(f"Error sending data: {e}")
+        raise e  # Signal to reconnect
+
+async def periodic_send():
+    """Keep connection open and send telemetry periodically."""
+    while True:
+        try:
+            print(f"Connecting to {HOST}:{PORT}...")
+            reader, writer = await asyncio.open_connection(HOST, PORT)
+            print("Connection established.")
+
+            while True:
+                # Generate telemetry data
+                generate_telemetry_data('data.toml')
+
+                # Send telemetry data
+                await send_telemetry(reader, writer)
+
+                # Wait before sending again
+                await asyncio.sleep(INTERVAL)
+
+        except Exception as e:
+            print(f"Connection failed: {e}")
+            print("Retrying in 5 seconds...")
+            await asyncio.sleep(5)  # Wait before reconnecting
 
 @telemetry.command()
-def gen_crash_report():
-    # Generate file containing latest logs, aswell as the error and some useful data like spikes
-    pass
-
-@telemetry.command()
-def send_data():
-    # Send data to the telemetry server of discord bot
-    logger.debug("Telemetry data sent to china successfully.")
-
-
-@telemetry.command()
-def collect_start():
-    # A loop that will periodicaly collect data, run with &
-    gen_data()
-    send_data("/data.toml")
-
+def start_telemetry():
+    """Start the periodic telemetry sender."""
+    asyncio.run(periodic_send())
 
 cli = telemetry
