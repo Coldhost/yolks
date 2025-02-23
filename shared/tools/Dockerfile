@@ -41,7 +41,7 @@ ENV MATRIX_VERSION=${MATRIX_VERSION}-legacy
 ENV MATRIX_TYPE=$MATRIX_TYPE
 
 # Install dependencies needed for building the tool (e.g., tar, Python, etc.)
-RUN apk add --no-cache tar musl-dev bash git python3-dev py3-pip build-base \
+RUN apk add --no-cache tar gcc p3-dev musl-dev linux-headers bash git python3-dev py3-pip build-base \
     && git clone https://github.com/Coldhost/yolks \
     && cd yolks/shared/tools \
     && pip install --upgrade pip setuptools wheel \
