@@ -124,7 +124,9 @@ fi
 if [ "$GIT_DOWNLOAD" = 1 ]; then
 	if git -C /home/container rev-parse --is-inside-work-tree &>/dev/null; then
 		printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mTrying to pull changes\033[0m\n"
+		git stash -- package.json
 		git pull
+		git pop
 	else
 		printf "\033[1m\033[33mcontainer@coldhost.eu~ \033[1;39;44mPlease reinstall the server first (not a git repository)\033[0m\n"
 	fi
