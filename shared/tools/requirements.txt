@@ -3,3 +3,4 @@ pyinstaller
 pyyaml
 psutil
 toml
+requests
