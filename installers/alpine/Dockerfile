@@ -21,7 +21,7 @@
 #
 FROM		ghcr.io/coldhost/tools-cli:latest-full-release as tools
 
-RUN tar -xfu ghcr_tools.tar.gz
+RUN tar -xzf ghcr_tools.tar.gz
 
 FROM        --platform=$TARGETOS/$TARGETARCH alpine:latest
 
