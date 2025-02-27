@@ -8,7 +8,10 @@ on:
       - master
     paths:
       - installers/**
-
+  workflow_run:
+    workflows: ["compile tools"]  # Name of the first workflow
+    types:
+      - completed  # Runs only when Workflow 1 completes
 # Two separate jobs, first for multiarch (amd64, arm64), second for amd64 only
 
 jobs:

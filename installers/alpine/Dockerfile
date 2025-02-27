@@ -19,6 +19,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
+FROM		ghcr.io/coldhost/tools-cli:latest-full-release as tools
+
+RUN tar -xfu ghcr_tools.tar.gz
 
 FROM        --platform=$TARGETOS/$TARGETARCH alpine:latest
 
@@ -30,3 +33,4 @@ LABEL       org.opencontainers.image.licenses=MIT
 RUN         apk add --update --no-cache ca-certificates curl git jq wget
 RUN         curl -o /usr/local/bin/downloader https://raw.githubusercontent.com/Coldhost/eggs/refs/heads/master/scripts/downloader.sh \
 				&& chmod +x /usr/local/bin/downloader
+COPY        --from=tools /tools /bin/tools
