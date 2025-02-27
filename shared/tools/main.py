@@ -4,7 +4,6 @@ import click # type: ignore
 import logging
 import yaml # type: ignore
 import sys
-import requests
 
 def resource_path(relative_path):
     """ Get the resource path inside the bundled executable or from the source. """

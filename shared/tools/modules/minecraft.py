@@ -111,7 +111,10 @@ def get_latest_forge_version():
     """Fetch the latest Forge version"""
     response = requests.get("https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json")
     if response.status_code == 200:
-        return response.json()["promos"]["latest"]
+        promos = response.json()["promos"]
+        for key in reversed(promos):
+            if key.endswith("recommended"):
+                return promos[key]c x 
     return None
 
 # Example usage (will auto-detect latest if version/build is missing)
