@@ -8,6 +8,10 @@ on:
       - master
     paths:
       - java/**
+  workflow_run:
+    workflows: ["compile tools"]  # Name of the first workflow
+    types:
+      - completed  # Runs only when Workflow 1 completes
 jobs:
   push:
     name: "yolks:java_${{ matrix.tag }}"

@@ -6,8 +6,8 @@ on:
   push:
     branches:
       - master
-    paths:
-      - oses/**
+
+
 jobs:
   push:
     name: "yolks:${{ matrix.oses }}"
