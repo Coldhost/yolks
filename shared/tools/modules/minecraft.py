@@ -114,7 +114,7 @@ def get_latest_forge_version():
         promos = response.json()["promos"]
         for key in reversed(promos):
             if key.endswith("recommended"):
-                return promos[key]c x 
+                return promos[key]
     return None
 
 # Example usage (will auto-detect latest if version/build is missing)
