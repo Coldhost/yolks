@@ -30,35 +30,36 @@ def download_minecraft_server(server_type, version=None, build=None):
     """Download Minecraft server based on type, version, and build (auto-detects latest if missing)"""
 
     if server_type == "vanilla":
-        if not version:
+        if not version or version == "latest":
             version = get_latest_vanilla_version()
         version_hash = get_vanilla_version_hash(version)
         if not version_hash:
-            print(f"❌ Could not find Vanilla version: {version}")
-            return
+            print(f"❌ Could not find Vanilla version: {version}. Using latest available version.")
+            version = get_latest_vanilla_version()
+            version_hash = get_vanilla_version_hash(version)
         url = SERVER_URLS["vanilla"].format(version_hash=version_hash)
-        output_file = f"servers/vanilla-{version}.jar"
+        output_file = "/home/container/server.jar"
 
     elif server_type == "paper":
-        if not version:
+        if not version or version == "latest":
             version = get_latest_paper_version()
-        if not build or not is_valid_paper_build(version, build):
+        if not build or build == "latest" or not is_valid_paper_build(version, build):
             build = get_latest_paper_build(version)
         if not build:
-            print(f"❌ Could not find PaperMC build for version {version}")
-            return
+            print(f"❌ Could not find PaperMC build for version {version}. Using latest available build.")
+            build = get_latest_paper_build(version)
         url = SERVER_URLS["paper"].format(version=version, build=build)
-        output_file = f"servers/paper-{version}-{build}.jar"
+        output_file = "/home/container/server.jar"
 
     elif server_type == "bungeecord":
         url = SERVER_URLS["bungeecord"]
-        output_file = "servers/bungeecord.jar"
+        output_file = "/home/container/server.jar"
 
     elif server_type == "forge":
-        if not version:
+        if not version or version == "latest":
             version = get_latest_forge_version()
         url = SERVER_URLS["forge"].format(version=version)
-        output_file = f"servers/forge-{version}.jar"
+        output_file = "/home/container/server.jar"
 
     else:
         print("❌ Unsupported server type!")
@@ -147,3 +148,4 @@ def get_version(project, version, build, clean):
     click.echo(f"✅ Downloaded {project} version {version} (Build {build})")
 
 cli = minecraft
+
