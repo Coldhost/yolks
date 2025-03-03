@@ -10,7 +10,10 @@ SERVER_URLS = {
     "vanilla": "https://launcher.mojang.com/v1/objects/{version_hash}/server.jar",
     "paper": "https://api.papermc.io/v2/projects/paper/versions/{version}/builds/{build}/downloads/paper-{version}-{build}.jar",
     "bungeecord": "https://ci.md-5.net/job/BungeeCord/lastSuccessfulBuild/artifact/bootstrap/target/BungeeCord.jar",
-    "forge": "https://maven.minecraftforge.net/net/minecraftforge/forge/{version}/forge-{version}-installer.jar"
+    "forge": "https://maven.minecraftforge.net/net/minecraftforge/forge/{version}/forge-{version}-installer.jar",
+    "velocity":"placeholder",
+    "spigot":"placeholder",
+    "mohist":"placeholder"
 }
 
 def download_file(url, output_path):
