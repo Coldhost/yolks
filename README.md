@@ -33,6 +33,7 @@ is tagged correctly.
 
 ## Available Images (Always check for tagged packages, not everything is enabled to be packaged)
 [![Installers](https://github.com/Coldhost/yolks/actions/workflows/installers.yml/badge.svg)](https://github.com/Coldhost/yolks/actions/workflows/installers.yml)
+[![Websites](https://github.com/Coldhost/yolks/actions/workflows/websites.yml/badge.svg)](https://github.com/Coldhost/yolks/actions/workflows/websites.yml)
 [![Java](https://github.com/Coldhost/yolks/actions/workflows/java.yml/badge.svg)](https://github.com/Coldhost/yolks/actions/workflows/java.yml)
 [![NodeJS](https://github.com/Coldhost/yolks/actions/workflows/nodejs.yml/badge.svg)](https://github.com/Coldhost/yolks/actions/workflows/nodejs.yml)
 [![Python](https://github.com/Coldhost/yolks/actions/workflows/python.yml/badge.svg)](https://github.com/Coldhost/yolks/actions/workflows/python.yml)
@@ -154,6 +155,13 @@ is tagged correctly.
     * `ghcr.io/coldhost/yolks:python_discord.py-3.12`
   * [`discord.py-python3.13`](https://github.com/Coldhost/yolks/tree/master/python/discord.py-3.13)
     * `ghcr.io/coldhost/yolks:python_discord.py-3.13`
+* [`websites`](https://github.com/Coldhost/yolks/tree/master/websites)
+  * [`azuriom-php8.2`](https://github.com/Coldhost/yolks/tree/master/websites/azuriom-php8.2)
+    * `ghcr.io/coldhost/yolks:azuriom-php8.2`
+  * [`azuriom-php8.2`](https://github.com/Coldhost/yolks/tree/master/websites/azuriom-php8.3)
+    * `ghcr.io/coldhost/yolks:azuriom-php8.3`
+  * [`azuriom-php8.2`](https://github.com/Coldhost/yolks/tree/master/websites/azuriom-php8.4)
+    * `ghcr.io/coldhost/yolks:azuriom-php8.4`
 
 ### Installation Images
 
