@@ -1,6 +1,6 @@
-> **! This repository was edited for needs of Coldhost.eu !**
-
 # Yolks
+
+> **! This repository was edited for needs of Coldhost.eu !**
 
 A curated collection of core images that can be used with Coldhost's Egg system. Each image is rebuilt
 periodically to ensure dependencies are always up-to-date.
@@ -32,6 +32,7 @@ When adding a new version to an existing image, such as `java v42`, you'd add it
 is tagged correctly.
 
 ## Available Images (Always check for tagged packages, not everything is enabled to be packaged)
+
 [![Installers](https://github.com/Coldhost/yolks/actions/workflows/installers.yml/badge.svg)](https://github.com/Coldhost/yolks/actions/workflows/installers.yml)
 [![Websites](https://github.com/Coldhost/yolks/actions/workflows/websites.yml/badge.svg)](https://github.com/Coldhost/yolks/actions/workflows/websites.yml)
 [![Java](https://github.com/Coldhost/yolks/actions/workflows/java.yml/badge.svg)](https://github.com/Coldhost/yolks/actions/workflows/java.yml)
