@@ -1,4 +1,11 @@
 FROM php:8.4-fpm-alpine
 
-COPY ./../entrypoint.sh /entrypoint.sh
-ENTRYPOINT [ "entrypoint.sh" ]
+LABEL       org.opencontainers.image.source="https://github.com/Coldhost/yolks"
+
+
+USER        container
+ENV         USER=container HOME=/home/container
+WORKDIR     /home/container
+
+COPY        ./../entrypoint.sh /entrypoint.sh
+CMD         [ "/bin/ash", "/entrypoint.sh" ]
